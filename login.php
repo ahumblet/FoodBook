@@ -48,15 +48,15 @@
 					<form class="login-form" action="checkLogin.php" method="post">
 						<input type="text" name="username" placeholder="username"/>
 						<input type="password" name="password" placeholder="password"/>
-						<button>login</button>
+						<button name="login" type="submit">Login</button>
 						<p class="message">Not registered? <a href="#">Create an account</a></p>
 					</form>
 					<!-- register form -->
-					<form class="register-form" action="checkRegistration.php" method="post">
+					<form class="register-form" action="checkLogin.php" method="post">
 						<input type="text" name="username" placeholder="name"/>
 						<input type="password" name="password" placeholder="password"/>
 						<input type="text" name="placeholder" placeholder="email address"/>
-						<button>create</button>
+						<button name="register" type="submit">Register</button>
 						<p class="message">Already registered? <a href="#" onclick="function()"> Sign In</a></p>
 					</form>
 				</div>
@@ -65,3 +65,6 @@
 	</html>
 EOT;
 ?>
+
+
+

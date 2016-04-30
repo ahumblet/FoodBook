@@ -3,8 +3,6 @@
 	$username = $_SESSION["username"];
 	
 	echo "<link rel='stylesheet' href='login.css'>";
-
-	
 	
 	printf("%s's profile: ", $username);
 	
@@ -36,5 +34,12 @@
 			printf("<br>%s: %s", $row["column_name"], $fieldValue);
 		}
 	}
+	
+	//edit profile should only appear if logged in user == username of profile
+	//I'll need to add a check for this
 ?>
+
+<form action="editProfile.php">
+<input type="submit" value="Edit Profile">
+</form>
 

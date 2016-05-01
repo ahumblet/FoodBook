@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$username = $_SESSION["username"];
+	$loggedInUser = $_SESSION["loggedInUser"];
 
 	$user = 'root';
 	$password = 'root';
@@ -14,7 +14,7 @@
 	}
 	
 	//get the profile entry
-	$query = sprintf("select * from profile where username = '%s'", $username);
+	$query = sprintf("select * from profile where username = '%s'", $loggedInUser);
 	$result = $mysqli->query($query);
 	$entry = $result->fetch_assoc();
 	
@@ -31,7 +31,7 @@
 	<body>
 		<h1> Edit Profile </h1>
 
-		<form action="submitEditProfile.php" method="post">
+		<form action="submitEditProfile.php" method="post" enctype="multipart/form-data">
 
 <?php
 	$fieldValue = $entry["firstName"];
@@ -44,11 +44,24 @@
 	printf('<br> Email : <input type="text" name="email" value="%s"/>', $fieldValue);
 	$fieldValue = $entry["visibility"];
 	printf('<br> Visibility : <select name="visibility"> <option value="me">Me</option> <option value="friends">Friends</option> <option value="FOFs">Friends Of Friends</option> <option value="everyone">Everyone</option> </select>');
-	printf('<br> Photo : <input type="text" name="photo" value=""/>');
+	///printf('<br> Photo : <input type="image" name="photo" value=""/>');
+	
+	//echo '<form action="uploadImage.php" method="post" enctype="multipart/form-data">';
+	//echo '<br>Photo: ';
+	//echo '<input type="file" value="profilePhoto" id="profilePhoto">';
+	//echo '<input type="submit" value="Upload Image" name="submit">';
+	//echo '</form>';
 ?>
 
 <br>
-<button name="submit" type="submit" value="submit">Submit</button>
+<button type="submit" name="submit" value="submit">Submit</button>
+</form>
+
+<br>
+<form action="submitEditProfile.php" method="post" enctype="multipart/form-data">
+Photo:
+<input type="file" name="fileToUpload" id="fileToUpload">
+<input type="submit" name="submitPhoto" value="submitPhoto" >
 </form>
 
 

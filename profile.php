@@ -1,10 +1,8 @@
 <?php
 	session_start();
-	$username = $_SESSION["username"];
+	$loggedInUser = $_SESSION["loggedInUser"];
 	
 	echo "<link rel='stylesheet' href='login.css'>";
-	
-	printf("%s's profile: ", $username);
 	
 	//establish connection and global variables
 	$user = 'root';
@@ -19,9 +17,13 @@
 	}
 
 	//get the profile entry
-	$query = sprintf("select * from profile where username = '%s'", $username);
+	$query = sprintf("select * from profile where username = '%s'", $loggedInUser);
 	$result = $mysqli->query($query);
 	$entry = $result->fetch_assoc();
+	$profileUsername = $entry["username"];
+	
+	//print profile title
+	printf("%s's profile: ", $profileUsername);
 	
 	//get the profile fields
 	$query = sprintf("select column_name from information_schema.columns where table_schema = '%s' and table_name = 'profile'", $db);
@@ -31,15 +33,20 @@
 		while($row = $profileFields->fetch_assoc()) {
 			$field = $row["column_name"];
 			$fieldValue = $entry[$field];
-			printf("<br>%s: %s", $row["column_name"], $fieldValue);
+			if ($row["column_name"] == "photo") {
+				echo "<br>photo: <br>";
+				echo '<img src="data:image/jpeg;base64, ' . base64_encode($fieldValue) . '"/>';
+			} else {
+				printf("<br>%s: %s", $row["column_name"], $fieldValue);
+			}
 		}
 	}
 	
-	//edit profile should only appear if logged in user == username of profile
-	//I'll need to add a check for this
+	if ($loggedInUser == $profileUsername) {
+		echo '<form action="editProfile.php">';
+		echo '<input type="submit" value="Edit Profile">';
+		echo '</form>';
+	}
 ?>
 
-<form action="editProfile.php">
-<input type="submit" value="Edit Profile">
-</form>
 

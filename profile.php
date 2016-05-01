@@ -4,6 +4,8 @@
 	
 	echo "<link rel='stylesheet' href='login.css'>";
 	
+	$profileUsername = $_GET["username"];
+	
 	//establish connection and global variables
 	$user = 'root';
 	$password = 'root';
@@ -17,10 +19,9 @@
 	}
 
 	//get the profile entry
-	$query = sprintf("select * from profile where username = '%s'", $loggedInUser);
+	$query = sprintf("select * from profile where username = '%s'", $profileUsername);
 	$result = $mysqli->query($query);
 	$entry = $result->fetch_assoc();
-	$profileUsername = $entry["username"];
 	
 	//print profile title
 	printf("%s's profile: ", $profileUsername);

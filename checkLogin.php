@@ -22,7 +22,8 @@
 		$result = $mysqli->query($query);
 		if ($result->num_rows == 1) {
 			$_SESSION["loggedInUser"] = $username;
-			header("Location: profile.php");
+			$headerString = sprintf("Location: profile.php?username=%s", $username);
+			header($headerString);
 			exit;
 		} else {
 			header("Location: login.php?userError=1");
@@ -45,7 +46,8 @@
 			$query = sprintf("INSERT INTO user (`username`, `password`, `type`) VALUES ('%s', '%s', 'client')", $username, MD5($password));
 			//
 			$_SESSION["loggedInUser"] = $username;
-			header("Location: profile.php");
+			$headerString = sprintf("Location: profile.php?username=%s", $username);
+			header($headerString);
 			exit;
 		}
 	}

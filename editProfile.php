@@ -44,13 +44,6 @@
 	printf('<br> Email : <input type="text" name="email" value="%s"/>', $fieldValue);
 	$fieldValue = $entry["visibility"];
 	printf('<br> Visibility : <select name="visibility"> <option value="me">Me</option> <option value="friends">Friends</option> <option value="FOFs">Friends Of Friends</option> <option value="everyone">Everyone</option> </select>');
-	///printf('<br> Photo : <input type="image" name="photo" value=""/>');
-	
-	//echo '<form action="uploadImage.php" method="post" enctype="multipart/form-data">';
-	//echo '<br>Photo: ';
-	//echo '<input type="file" value="profilePhoto" id="profilePhoto">';
-	//echo '<input type="submit" value="Upload Image" name="submit">';
-	//echo '</form>';
 ?>
 
 <br>

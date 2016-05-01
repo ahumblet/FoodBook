@@ -22,34 +22,19 @@
 		$age = $_POST["age"];
 		$photo = $_POST["photo"];
 		$visibility = $_POST["visibility"];
-		
-		//make changes to the database
-		//$query = sprintf("delete from profile where username = '%s'", $username);
-		//$result = $mysqli->query($query);
-		
-		//$query = sprintf("insert into profile (username, firstName, lastName, age, photo, visibility, email) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", $username, $firstName, $lastName, $age, $photo, $visibility, $email);
-		
-		$query = sprintf("update profile set firstName = '%s', lastName = '%s', age = %s, visibility = '%s', email = '%s' where username = '%s'", $firstName, $lastName, $age, $visibility, $email, $username);
-		
+		$query = sprintf("update profile set firstName = '%s', lastName = '%s', age = '%s', visibility = '%s', email = '%s' where username = '%s'", $firstName, $lastName, $age, $visibility, $email, $username);
 		$result = $mysqli->query($query);
 	} elseif (isset($_FILES['fileToUpload'])) {
 		$tmp_name  = $_FILES['fileToUpload']['tmp_name'];
-		//echo $tmp_name;
 		$file_content = addslashes(file_get_contents($tmp_name));
-		//echo "<br>";
-		//printf("<br> username = %s", $username);
-		//echo "<br>";
 		$query = sprintf("update profile set photo = '%s' where username = '%s'", $file_content, $username);
-		//echo "<br>";
-		//echo $query;
 		$mysqli->query($query);
-		//UPDATE `Nutrition`.`profile` SET `photo` = xxx
-		//echo "<br>photo submitted";
 	} else {
 		echo "nothing";
 	}
 	
 	//now go back to profile
-	header("Location: profile.php");
+	$headerString = sprintf("Location: profile.php?username=%s", $username);
+	header($headerString);
 	exit;
 ?>

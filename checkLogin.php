@@ -21,6 +21,7 @@
 		$query = sprintf("select username from user where (username = '%s') and (password = MD5('%s'))", $username, $password);
 		$result = $mysqli->query($query);
 		if ($result->num_rows == 1) {
+			//set the session username, go to home profile
 			$_SESSION["loggedInUser"] = $username;
 			$headerString = sprintf("Location: profile.php?username=%s", $username);
 			header($headerString);
@@ -43,8 +44,14 @@
 			exit;
 		} else {
 			//create entry
-			$query = sprintf("INSERT INTO user (`username`, `password`, `type`) VALUES ('%s', '%s', 'client')", $username, MD5($password));
-			//
+			$query = sprintf("INSERT INTO user (username, password, type) VALUES ('%s', '%s', 'client')", $username, MD5($password));
+			$result = $mysqli->query($query);
+			
+			//create profile
+			$query = sprintf("INSERT INTO profile (username, firstName, lastName, age, photo, visibility, email) values ('%s', '', '', NULL, NULL, '', '%s')", $username, $email);
+			$result = $mysqli->query($query);
+			
+			//set the session username, go to home profile
 			$_SESSION["loggedInUser"] = $username;
 			$headerString = sprintf("Location: profile.php?username=%s", $username);
 			header($headerString);

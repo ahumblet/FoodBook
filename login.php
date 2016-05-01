@@ -55,7 +55,7 @@
 					<form class="register-form" action="checkLogin.php" method="post">
 						<input type="text" name="username" placeholder="name"/>
 						<input type="password" name="password" placeholder="password"/>
-						<input type="text" name="placeholder" placeholder="email address"/>
+						<input type="text" name="email" placeholder="email address"/>
 						<button name="register" type="submit">Register</button>
 						<p class="message">Already registered? <a href="#" onclick="function()"> Sign In</a></p>
 					</form>

@@ -36,7 +36,7 @@
 			$fieldValue = $entry[$field];
 			if ($row["column_name"] == "photo") {
 				echo "<br>photo: <br>";
-				echo '<img src="data:image/jpeg;base64, ' . base64_encode($fieldValue) . '"/>';
+				echo '<img src="data:image/jpeg;base64, ' . base64_encode($fieldValue) . '" height="200" width="200"/>';
 			} else {
 				printf("<br>%s: %s", $row["column_name"], $fieldValue);
 			}
@@ -48,6 +48,9 @@
 		echo '<input type="submit" value="Edit Profile">';
 		echo '</form>';
 	}
+	
+	printf("<br><br><a href='http://localhost:8888/finalProject/wall.php?username=%s'>View %s's wall</a>", $profileUsername, $profileUsername);
+	
 ?>
 
 

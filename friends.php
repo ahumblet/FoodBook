@@ -41,7 +41,8 @@
 			$invite = $row["username1"];
 			printf('<a href="http://localhost:8888/finalProject/profile.php?username=%s">%s</a>', $invite, $invite);
 			printf("     ");
-			printf('<button name="acceptedFriend" value="%s" type="submit">accept friend</button><br>', $invite);
+			printf('<button name="acceptedFriend" value="%s" type="submit">accept friend</button>', $invite);
+			printf('<button name="rejectedFriend" value="%s" type="submit">reject friend</button><br>', $invite);
 		}
 	}
 	printf('</form>');

@@ -49,17 +49,27 @@
 			printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
 			printf('</form>');
 			
+			//show likes for this post
 			$query = sprintf("select * from interactiveLike where likedInteractiveID = '%s'", $row["interactiveID"]);
 			$likeResults = $mysqli->query($query);
-			while ($like = $likeResults->fetch_assoc()) {
-				printf('liked by %s <br>', $like["likingUser"]);
+			if ($likeResults->num_rows > 0 ) {
+				printf('liked by: ');
+				while ($like = $likeResults->fetch_assoc()) {
+					printf('%s, ', $like["likingUser"]);
+				}
+				printf("<br>");
 			}
 			
-		
+			//show comments for this post
+			$query = sprintf("select * from comment where commentedThing = '%s'", $row["interactiveID"]);
+			$commentResults = $mysqli->query($query);
+			while ($comment = $commentResults->fetch_assoc()) {
+				printf("&nbsp&nbsp&nbsp%s %s:&nbsp&nbsp&nbsp%s", $comment["timestamp"], $comment["postingUser"], $comment["textContent"]);
+				//printf("&nbsp%s", $comment["textContent"]);
+				
+			}
 		}
 	}
-	
-	//to display 
 	
 ?>
 

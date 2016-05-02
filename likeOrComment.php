@@ -38,6 +38,7 @@
 		printf('<form action="likeOrComment.php" method="post" id="like">');
 		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
 		printf('Photo: <input type="file" name="photo"> <br>');
+		//drop down for location
 		$query = sprintf("select * from location");
 		$locationResults = $mysqli->query($query);
 		printf('Location: <select name="location">');
@@ -45,6 +46,16 @@
 		if ($locationResults->num_rows > 0) {
 			while ($location = $locationResults->fetch_assoc()) {
 				printf('<option value="%s">%s</option>', $location["locName"], $location["locName"]);
+			}
+		}
+		printf('</select><br>');
+		//drop down for visibility
+		$query = sprintf("select * from visibility");
+		$visibilityResults = $mysqli->query($query);
+		printf('Visibility: <select name="visibility">');
+		if ($locationResults->num_rows > 0) {
+			while ($visibilityRow = $visibilityResults->fetch_assoc()) {
+				printf('<option value="%s">%s</option>', $visibilityRow["level"], $visibilityRow["level"]);
 			}
 		}
 		printf('</select><br>');

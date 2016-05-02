@@ -43,6 +43,24 @@
 		}
 	}
 	
+	//show all liked locations
+	$query = sprintf("select * from interactiveLike join location where interactiveLike.likedInteractiveID = location.interactiveID and likingUser = '%s'", $profileUsername);
+	$result = $mysqli->query($query);
+	if ($result->num_rows > 0) {
+		printf("<br>Liked Locations: ");
+		while ($row = $result->fetch_assoc()) {
+			$location = $row["locName"];
+			$interactiveID = $row["interactiveID"];
+			printf("%s, ", $location);
+		}
+		printf("<br>");
+	}
+	
+
+	
+	
+	
+	
 	if ($loggedInUser == $profileUsername) {
 		echo '<form action="editProfile.php">';
 		echo '<input type="submit" value="Edit Profile">';

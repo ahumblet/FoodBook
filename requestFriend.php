@@ -14,9 +14,6 @@
 	}
 	
 	$requestedFriend = $_POST["requestedFriend"];
-	//printf("about to request %s", $requestedFriend);
-	
-	
 	$query = sprintf("INSERT INTO friendship (username1, username2) VALUES ('%s', '%s')", $loggedInUser, $requestedFriend);
 	
 	$result = $mysqli->query($query);

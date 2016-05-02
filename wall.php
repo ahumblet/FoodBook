@@ -30,9 +30,8 @@
 	printf('<input type="hidden" name="postee" value="%s">', $wallUsername);
 	printf('<input type="submit" value="POST"> <br>');
 	printf('</form><br>');
-	
+
 	//print all comments on this user's wall
-	
 	$query = sprintf('select * from post where receivingUser = "%s" order by timestamp desc', $wallUsername);
 	$result = $mysqli->query($query);
 	
@@ -41,9 +40,26 @@
 			printf("<br><br>%s %s says:<br>", $row["timestamp"], $row["postingUser"]);
 			printf("%s<br>", $row["title"]);
 			printf("%s<br>", $row["textContent"]);
+			
+			printf('<form action="likeOrComment.php" method="post" id="like">');
+			printf('<input type="hidden" value="%s" name="likingUser">', $loggedInUser);
+			printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
+			printf('<input type="hidden" value="%s" name="interactiveId">', $row["interactiveID"]);
+			printf('<button type="submit" value="Like" name="Like">Like</button>');
+			printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
+			printf('</form>');
+			
+			$query = sprintf("select * from interactiveLike where likedInteractiveID = '%s'", $row["interactiveID"]);
+			$likeResults = $mysqli->query($query);
+			while ($like = $likeResults->fetch_assoc()) {
+				printf('liked by %s <br>', $like["likingUser"]);
+			}
+			
+		
 		}
 	}
 	
+	//to display 
 	
 ?>
 

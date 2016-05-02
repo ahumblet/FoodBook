@@ -102,6 +102,16 @@
 		while ($comment = $commentResults->fetch_assoc()) {
 			//display the comment:
 			printf("<br>&nbsp&nbsp&nbsp%s %s:&nbsp&nbsp&nbsp%s<br>", $comment["timestamp"], $comment["postingUser"], $comment["textContent"]);
+			
+			//print location if there is one, requires looking up the location name
+			if ($comment["location"] != '') {
+				$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
+				$locationResult = $mysqli->query($query);
+				$locationRow = $locationResult->fetch_assoc();
+				printf("Location: %s<br>", $locationRow["locName"]);
+			}
+			
+			
 			//display like, dislike, comment buttons:
 			$commentId = $comment["interactiveID"];
 			printf('<form action="likeOrComment.php" method="post" id="like">');

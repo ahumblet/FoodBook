@@ -70,12 +70,11 @@
 			$locationId = $row["interactiveID"];
 		}
 		//slopping way of dealing with the fact that NULL can't have quotes around it
-		if ($locationId = 'NULL') {
+		if ($locationId == 'NULL') {
 			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '',  'everyone', NULL, now())", $poster, $interactiveId, $textContent);
 		} else {
 			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '',  'everyone', '%s', now())", $poster, $interactiveId, $textContent, $locationId);
 		}
-		printf("query = %s<br>", $query);
 		$mysqli->query($query);
 		
 	} else {

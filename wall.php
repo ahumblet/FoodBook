@@ -47,8 +47,6 @@
 		printf('</form><br>');
 	}
 	
-	
-	//I should break this up into displayPost, displayComment, displayLikes/Dislikes etc.
 	function displayWall() {
 		global $mysqli, $loggedInUser, $wallUsername;
 		//query all posts on this user's wall
@@ -56,38 +54,44 @@
 		$result = $mysqli->query($query);
 		if ($result->num_rows > 0) {
 			while ($post = $result->fetch_assoc()) {
+				//check visibility of this post
 				$visibility = $post["visibility"];
 				$postingUser = $post["postingUser"];
 				$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 				if ($permission == True) {
-					printf("<br><br>%s %s says:<br>", $post["timestamp"], $post["postingUser"]);
-					printf("%s<br>", $post["title"]);
-					printf("%s<br>", $post["textContent"]);
-					//lookup location name if there is one
-					if ($post["location"] != '') {
-						$query = sprintf("select * from location where interactiveID = '%s'", $post["location"]);
-						$locationResult = $mysqli->query($query);
-						$locationRow = $locationResult->fetch_assoc();
-						printf("Location: %s<br>", $locationRow["locName"]);
-					}
-					printf('<form action="likeOrComment.php" method="post" id="like">');
-					printf('<input type="hidden" value="%s" name="likingUser">', $loggedInUser);
-					printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
-					printf('<input type="hidden" value="%s" name="interactiveId">', $post["interactiveID"]);
-					printf('<button type="submit" value="Like" name="Like">Like</button>');
-					printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
-					printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
-					printf('</form>');
-					
+					displayPostWithButtons($post);
 					displayLikesAndDislikes($post);
-					displayComments($post, $loggedInUser, $wallUsername);
+					displayComments($post);
 				}
 			}
 		}
 	}
 	
-	function displayLikesAndDislikes($item)
-	{
+	function displayPostWithButtons($post) {
+		global $mysqli, $loggedInUser, $wallUsername;
+
+		printf("<br><br>%s %s says:<br>", $post["timestamp"], $post["postingUser"]);
+		printf("%s<br>", $post["title"]);
+		printf("%s<br>", $post["textContent"]);
+		//lookup location name if there is one
+		if ($post["location"] != '') {
+			$query = sprintf("select * from location where interactiveID = '%s'", $post["location"]);
+			$locationResult = $mysqli->query($query);
+			$locationRow = $locationResult->fetch_assoc();
+			printf("Location: %s<br>", $locationRow["locName"]);
+		}
+		printf('<form action="likeOrComment.php" method="post" id="like">');
+		printf('<input type="hidden" value="%s" name="likingUser">', $loggedInUser);
+		printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
+		printf('<input type="hidden" value="%s" name="interactiveId">', $post["interactiveID"]);
+		printf('<button type="submit" value="Like" name="Like">Like</button>');
+		printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
+		printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
+		printf('</form>');
+	}
+	
+	
+	function displayLikesAndDislikes($item) {
 		global $mysqli;
 		
 		//show likes for this post
@@ -112,43 +116,45 @@
 		}
 	}
 	
-	function displayComments($row, $loggedInUser, $wallUsername) {
-		global $mysqli;
+	function displayCommentWithButtons($comment) {
+		global $mysqli, $loggedInUser, $wallUsername;
+		
+		printf("<br>&nbsp&nbsp&nbsp%s %s:&nbsp&nbsp&nbsp%s<br>", $comment["timestamp"], $comment["postingUser"], $comment["textContent"]);
+		//print location if there is one, requires looking up the location name
+		if ($comment["location"] != '') {
+			$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
+			$locationResult = $mysqli->query($query);
+			$locationRow = $locationResult->fetch_assoc();
+			printf("Location: %s<br>", $locationRow["locName"]);
+		}
+		//display like, dislike, comment buttons:
+		$commentId = $comment["interactiveID"];
+		printf('<form action="likeOrComment.php" method="post" id="like">');
+		printf('<input type="hidden" value="%s" name="likingUser">', $loggedInUser);
+		printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
+		printf('<input type="hidden" value="%s" name="interactiveId">', $commentId);
+		printf('<button type="submit" value="Like" name="Like">Like</button>');
+		printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
+		printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
+		printf('</form>');
+	}
+	
+	function displayComments($item) {
+		global $mysqli, $loggedInUser, $wallUsername;
 		
 		//show comments for this object (comment or post)
-		$query = sprintf("select * from comment where commentedThing = '%s'", $row["interactiveID"]);
+		$query = sprintf("select * from comment where commentedThing = '%s'", $item["interactiveID"]);
 		$commentResults = $mysqli->query($query);
 		while ($comment = $commentResults->fetch_assoc()) {
 			$visibility = $comment["visibility"];
 			$postingUser = $comment["postingUser"];
 			$permission = hasPermission($loggedInUser, $postingUser, $visibility);
-			//$mysqli->kill();
-			//$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
 			if ($permission == True) {
 				//display the comment:
-				printf("<br>&nbsp&nbsp&nbsp%s %s:&nbsp&nbsp&nbsp%s<br>", $comment["timestamp"], $comment["postingUser"], $comment["textContent"]);
-				
-				//print location if there is one, requires looking up the location name
-				if ($comment["location"] != '') {
-					$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
-					$locationResult = $mysqli->query($query);
-					$locationRow = $locationResult->fetch_assoc();
-					printf("Location: %s<br>", $locationRow["locName"]);
-				}
-				
-				//display like, dislike, comment buttons:
-				$commentId = $comment["interactiveID"];
-				printf('<form action="likeOrComment.php" method="post" id="like">');
-				printf('<input type="hidden" value="%s" name="likingUser">', $loggedInUser);
-				printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
-				printf('<input type="hidden" value="%s" name="interactiveId">', $commentId);
-				printf('<button type="submit" value="Like" name="Like">Like</button>');
-				printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
-				printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
-				printf('</form>');
+				displayCommentWithButtons($comment);
 				//display likes, dislikes
 				displayLikesAndDislikes($comment);
-				displayComments($comment, $loggedInUser, $wallUsername);
+				displayComments($comment);
 			}
 		}
 	}

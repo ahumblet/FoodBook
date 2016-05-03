@@ -1,16 +1,4 @@
-<?php
-	//establish connection and global variables
-	$user = 'root';
-	$password = 'root';
-	$db = 'Nutrition';
-	$host = 'localhost';
-	$port = 3306;
-
-	$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
-	if ($mysqli->connect_errno) {
-		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-	}
-	
+<?php	
 	//define a global javascript error variable
 	if ($_GET["userError"] == 1) {
 		echo '<script type="text/javascript">', 'var userError = 1;', '</script>';

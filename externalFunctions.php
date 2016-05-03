@@ -1,4 +1,26 @@
 <?php
+	//establish connection and global variables
+	$dbUser = 'root';
+	$dbPassword = 'root';
+	$db = 'Nutrition';
+	$dbHost = 'localhost';
+	$dbPort = 3306;
+	$mysqli;
+	
+	function startMysqli() {
+		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
+		$mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $db);
+		/*if ($mysqli->connect_errno) {
+			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+		}*/
+	}
+	
+	function restartMysqli() {
+		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
+		$mysqli->kill();
+		$mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $db);
+	}
+	
 	//is user1 allowed to see user2's content based on this visibility?
 	function hasPermission($user1, $user2, $level)
 	{
@@ -33,8 +55,3 @@
 		return False;
 	}
 ?>
-
-
-
-
-

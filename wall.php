@@ -1,26 +1,14 @@
 <?php
 	session_start();
 	$loggedInUser = $_SESSION["loggedInUser"];
+	$wallUsername = $_GET["username"];
 	
 	echo "<link rel='stylesheet' href='login.css'>";
 	
-	//establish connection and global variables
-	$user = 'root';
-	$password = 'root';
-	$db = 'Nutrition';
-	$host = 'localhost';
-	$port = 3306;
-	
-	$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
-	if ($mysqli->connect_errno) {
-		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-	}
-	
 	include_once 'externalFunctions.php';
+	startMysqli();
 	
-	$wallUsername = $_GET["username"];
 	printf("%s's wall: <br><br>", $wallUsername);
-	
 	newPostForm();
 	displayWall();
 
@@ -59,6 +47,8 @@
 		printf('</form><br>');
 	}
 	
+	
+	//I should break this up into displayPost, displayComment, displayLikes/Dislikes etc.
 	function displayWall() {
 		global $mysqli, $loggedInUser, $wallUsername;
 		//query all posts on this user's wall
@@ -99,6 +89,7 @@
 	function displayLikesAndDislikes($item)
 	{
 		global $mysqli;
+		
 		//show likes for this post
 		$query = sprintf("select * from interactiveLike where likedInteractiveID = '%s' and value = 'like'", $item["interactiveID"]);
 		$likeResults = $mysqli->query($query);
@@ -123,6 +114,7 @@
 	
 	function displayComments($row, $loggedInUser, $wallUsername) {
 		global $mysqli;
+		
 		//show comments for this object (comment or post)
 		$query = sprintf("select * from comment where commentedThing = '%s'", $row["interactiveID"]);
 		$commentResults = $mysqli->query($query);
@@ -155,7 +147,7 @@
 				printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
 				printf('</form>');
 				//display likes, dislikes
-				displayLikesAndDislikes($mysqli, $comment);
+				displayLikesAndDislikes($comment);
 				displayComments($comment, $loggedInUser, $wallUsername);
 			}
 		}

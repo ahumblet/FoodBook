@@ -2,16 +2,8 @@
 	session_start();
 	$loggedInUser = $_SESSION["loggedInUser"];
 
-	$user = 'root';
-	$password = 'root';
-	$db = 'Nutrition';
-	$host = 'localhost';
-	$port = 3306;
-	
-	$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
-	if ($mysqli->connect_errno) {
-		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-	}
+	include_once 'externalFunctions.php';
+	startMysqli();
 	
 	//get the profile entry
 	$query = sprintf("select * from profile natural join user where profile.username ='%s'", $loggedInUser);

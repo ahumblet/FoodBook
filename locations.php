@@ -4,17 +4,8 @@
 	
 	echo "<link rel='stylesheet' href='login.css'>";
 	
-	//establish connection and global variables
-	$user = 'root';
-	$password = 'root';
-	$db = 'Nutrition';
-	$host = 'localhost';
-	$port = 3306;
-	
-	$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
-	if ($mysqli->connect_errno) {
-		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-	}
+	include_once 'externalFunctions.php';
+	startMysqli();
 	
 	printf("Locations:<br><br>");
 	

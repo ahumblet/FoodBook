@@ -1,4 +1,6 @@
 <?php
+	//only php, no html
+	
 	session_start();
 	include_once 'externalFunctions.php';
 	

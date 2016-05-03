@@ -20,7 +20,7 @@
 		$likedUser = $_POST["likedUser"];
 		$wallUser = $likedUser;
 		$query = sprintf("insert into interactiveLike (likedInteractiveID, likingUser, timestamp, value) VALUE ('%s', '%s', now(), 'like')", $interactiveId, $likingUser);
-		$result = $mysqli->query($query);
+		$mysqli->query($query);
 	
 	} elseif (isset($_POST["Dislike"])) {
 		$interactiveId = $_POST["interactiveId"];
@@ -28,12 +28,13 @@
 		$dislikedUser = $_POST["likedUser"];
 		$wallUser = $dislikedUser;
 		$query = sprintf("insert into interactiveLike (likedInteractiveID, likingUser, timestamp, value) VALUE ('%s', '%s', now(), 'dislike')", $interactiveId, $dislikingUser);
-		$result = $mysqli->query($query);
+		$mysqli->query($query);
 		
 	} elseif (isset($_POST["Comment"])) {
 		$interactiveId = $_POST["interactiveId"];
 		$likingUser = $_POST["likingUser"];
 		$likedUser = $_POST["likedUser"];
+		$returnFile = $_POST["returnFile"];
 		$wallUser = $likedUser;
 		printf('<form action="likeOrComment.php" method="post" id="like">');
 		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
@@ -61,6 +62,7 @@
 		printf('</select><br>');
 		printf('<input type="hidden" name="poster" value="%s">', $likingUser);
 		printf('<input type="hidden" name="postee" value="%s">', $likedUser);
+		printf('<input type="hidden" name="returnFile" value="%s">', $returnFile);
 		printf('<input type="hidden" value="%s" name="interactiveId">', $interactiveId);
 		printf('<button type="submit" value="Comment" name="PostComment">POST</button>');
 		printf('</form>');
@@ -87,13 +89,13 @@
 			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '',  'everyone', '%s', now())", $poster, $interactiveId, $textContent, $locationId);
 		}
 		$mysqli->query($query);
-		
 	} else {
 		echo "neither like nor comment...?";
 	}
 	
-	//go back to the wall
-	$headerString = sprintf("Location: wall.php?username=%s", $wallUser);
+	//go back to the wall or feed
+	$returnFile = $_POST["returnFile"];
+	$headerString = sprintf("Location: %s?username=%s", $returnFile, $wallUser);
 	header($headerString);
 	exit;
 ?>

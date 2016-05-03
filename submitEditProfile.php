@@ -23,7 +23,10 @@
 		$photo = $_POST["photo"];
 		$visibility = $_POST["visibility"];
 		$query = sprintf("update profile set firstName = '%s', lastName = '%s', age = '%s', visibility = '%s', email = '%s' where username = '%s'", $firstName, $lastName, $age, $visibility, $email, $username);
-		$result = $mysqli->query($query);
+		$mysqli->query($query);
+		$type = $_POST["type"];
+		$query = sprintf("update user set type = '%s' where username = '%s'", $type, $username);
+		$mysqli->query($query);
 	} elseif (isset($_FILES['fileToUpload'])) {
 		$tmp_name  = $_FILES['fileToUpload']['tmp_name'];
 		$file_content = addslashes(file_get_contents($tmp_name));

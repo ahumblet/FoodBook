@@ -44,7 +44,8 @@
 	}
 	$result = $mysqli->query($query);
 	
-	$headerString = sprintf("Location: wall.php?username=%s", $postee);
+	$returnFile = $_POST["returnFile"];
+	$headerString = sprintf("Location: %s?username=%s", $returnFile, $postee);
 	header($headerString);
 	exit;
 ?>

@@ -9,7 +9,8 @@
 	startMysqli();
 	
 	printf("%s's wall: <br><br>", $wallUsername);
-	newPostForm();
+	$returnFile = "wall.php";
+	newPostForm($returnFile);
 	displayWall();
 
 	function displayWall() {
@@ -24,7 +25,6 @@
 				$postingUser = $post["postingUser"];
 				$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 				if ($permission == True) {
-					$returnFile = "wall.php";
 					displayPostWithButtons($post, $returnFile);
 					displayLikesAndDislikes($post);
 					displayComments($post, $returnFile);

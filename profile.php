@@ -10,7 +10,7 @@
 	startMysqli();
 
 	//get the profile entry
-	$query = sprintf("select * from profile where username = '%s'", $profileUsername);
+	$query = sprintf("select * from profile natural join user where profile.username ='%s'", $profileUsername);
 	$result = $mysqli->query($query);
 	
 	printf("%s's profile: <br><br>", $profileUsername);
@@ -39,6 +39,8 @@
 			printf("Age: %s <br>", $age);
 			$email = $row["email"];
 			printf("Email: %s <br>", $email);
+			$type = $row["type"];
+			printf("Type: %s <br>", $type);
 		
 			//show all liked locations, clear sqli first
 			$query = sprintf("select * from interactiveLike join location where interactiveLike.likedInteractiveID = location.interactiveID and likingUser = '%s'", $profileUsername);

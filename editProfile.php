@@ -14,7 +14,7 @@
 	}
 	
 	//get the profile entry
-	$query = sprintf("select * from profile where username = '%s'", $loggedInUser);
+	$query = sprintf("select * from profile natural join user where profile.username ='%s'", $loggedInUser);
 	$result = $mysqli->query($query);
 	$entry = $result->fetch_assoc();
 ?>
@@ -38,6 +38,8 @@
 	printf('<br> Age : <input type="text" name="age" value="%s"/>', $age);
 	$email = $entry["email"];
 	printf('<br> Email : <input type="text" name="email" value="%s"/>', $email);
+	$type = $entry["type"];
+	printf('<br> Type: <select name="type"> <option value="client">Client</option> <option value="nutritionist">Nutritionist</option> </select>');
 	$visibility = $entry["visibility"];
 	$visibilities = array('me', 'friends', 'FOFs', 'everyone');
 	printf('<br> Visibility : <select name="visibility">');

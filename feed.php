@@ -10,6 +10,8 @@
 	
 	$wallUsername = $_GET["username"];
 	printf("%s's feed: <br><br>", $loggedInUser);
+
+	$returnFile = "feed.php";
 	
 	$query = sprintf("select * from post");
 	$result = $mysqli->query($query);
@@ -19,14 +21,12 @@
 			$visibility = $post["visibility"];
 			$permission = hasPermission($loggedInUser , $postingUser, $visibility);
 			if ($permission == True) {
-				$returnFile = "feed.php";
 				displayPostWithButtons($post, $returnFile);
 				displayLikesAndDislikes($post);
 				displayComments($post, $returnFile);
 			}
 		}
 	}
-	
 ?>
 
 

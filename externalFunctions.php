@@ -55,7 +55,7 @@
 		return False;
 	}
 	
-	function newPostForm() {
+	function newPostForm($returnFile) {
 		//form to create a new post
 		global $mysqli, $loggedInUser, $wallUsername;
 		printf("Write on %s's wall: <br>", $wallUsername);
@@ -86,6 +86,7 @@
 		printf('</select><br>');
 		printf('<input type="hidden" name="poster" value="%s">', $loggedInUser);
 		printf('<input type="hidden" name="postee" value="%s">', $wallUsername);
+		printf('<input type="hidden" name="returnFile" value="%s">', $returnFile);
 		printf('<input type="submit" value="POST"> <br>');
 		printf('</form><br>');
 	}

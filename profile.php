@@ -31,7 +31,7 @@
 		
 		//check visibility
 		$visibility = $row["visibility"];
-		$permission = hasPermission($loggedInUser, $profileUsername, $visibility, $mysqli);
+		$permission = hasPermission($loggedInUser, $profileUsername, $visibility);
 		$mysqli->kill();
 		$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
 		if ($permission != True) {

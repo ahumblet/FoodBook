@@ -1,7 +1,9 @@
 <?php
 	//is user1 allowed to see user2's content based on this visibility?
-	function hasPermission($user1, $user2, $level, $mysqli)
+	function hasPermission($user1, $user2, $level)
 	{
+		global $mysqli;
+		
 		if (($user1 == $user2) || ($level == 'everyone')) {
 			return True;
 		}

@@ -47,7 +47,7 @@
 		$query = sprintf("select * from visibility");
 		$visibilityResults = $mysqli->query($query);
 		printf('Visibility: <select name="visibility">');
-		if ($locationResults->num_rows > 0) {
+		if ($visibilityResults->num_rows > 0) {
 			while ($visibilityRow = $visibilityResults->fetch_assoc()) {
 				printf('<option value="%s">%s</option>', $visibilityRow["level"], $visibilityRow["level"]);
 			}
@@ -68,9 +68,7 @@
 			while ($post = $result->fetch_assoc()) {
 				$visibility = $post["visibility"];
 				$postingUser = $post["postingUser"];
-				$permission = hasPermission($loggedInUser, $postingUser, $visibility, $mysqli);
-				//$mysqli->kill();
-				//$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
+				$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 				if ($permission == True) {
 					printf("<br><br>%s %s says:<br>", $post["timestamp"], $post["postingUser"]);
 					printf("%s<br>", $post["title"]);
@@ -91,15 +89,16 @@
 					printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
 					printf('</form>');
 					
-					displayLikesAndDislikes($mysqli, $post);
-					displayComments($mysqli, $post, $loggedInUser, $wallUsername);
+					displayLikesAndDislikes($post);
+					displayComments($post, $loggedInUser, $wallUsername);
 				}
 			}
 		}
 	}
 	
-	function displayLikesAndDislikes($mysqli, $item)
+	function displayLikesAndDislikes($item)
 	{
+		global $mysqli;
 		//show likes for this post
 		$query = sprintf("select * from interactiveLike where likedInteractiveID = '%s' and value = 'like'", $item["interactiveID"]);
 		$likeResults = $mysqli->query($query);
@@ -122,14 +121,15 @@
 		}
 	}
 	
-	function displayComments($mysqli, $row, $loggedInUser, $wallUsername) {
+	function displayComments($row, $loggedInUser, $wallUsername) {
+		global $mysqli;
 		//show comments for this object (comment or post)
 		$query = sprintf("select * from comment where commentedThing = '%s'", $row["interactiveID"]);
 		$commentResults = $mysqli->query($query);
 		while ($comment = $commentResults->fetch_assoc()) {
 			$visibility = $comment["visibility"];
 			$postingUser = $comment["postingUser"];
-			$permission = hasPermission($loggedInUser, $postingUser, $visibility, $mysqli);
+			$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 			//$mysqli->kill();
 			//$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
 			if ($permission == True) {
@@ -156,7 +156,7 @@
 				printf('</form>');
 				//display likes, dislikes
 				displayLikesAndDislikes($mysqli, $comment);
-				displayComments($mysqli, $comment, $loggedInUser, $wallUsername);
+				displayComments($comment, $loggedInUser, $wallUsername);
 			}
 		}
 	}

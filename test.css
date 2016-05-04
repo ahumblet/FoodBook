@@ -115,34 +115,19 @@ body {
 }
 .header .userPanel {
 	float: right;
-	width: 200px;
+	width: 300px;
 	height: 100%;
 }
-.header .userPanel .pic {
-	float: left;
-	background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8KCwkMEQ8SEhEPERATFhwXExQaFRARGCEYGhwdHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6V8Za3H4a8J6nr0sYdLG2aYqWCg4HQk9B+Z9ATxXwH8XPilqHxN8UibUWki02B9ltb53iBGI3N0ALZAycDdgV9o/tE6BceIfg/r1taSTCa2tmu1ijbAm8oF9pG0k9MgDBJA5FfDngPwjBq1/ZNJd+QXIcHbkgjt+lefUqxpLmmddGjKq7RKFo2oD7P5Msi3EP+rYEgccrgevBx16+1fRv7Nvxs8a3vjey8J+MbuC8tL1fLtZ7gLBJHJxhcqvzcAgAgEsRlsV2Hwc8E+F9DTbBpcN1cSxENJMu84xk4B4A+lUfirodjpPjDw34ottNXzI9RgidYoxukKsCgHHGQG59lAxk5445hGUlyrRnRPC8qd3qj6UHrRUdrNDc28VxbSpNBKoeORGDK6kZBBHBBFFeucVu5WVQwKsAVPBB718F+LdL1Dwz481bTNI05bU2GrTpawXJcN5RYyRMCQSRtYYPORg8g5r7U8c+N/C3gXSf7T8U6zbadAc+WrndJKcgEJGMs+NwzgHAOTgc18d/EL4m2vxF8etqaeHY9CtTD9nt5JZR9qudrNtaRRwp2npzjgbmGMcWKhzU722OrBTUalm7XPSvhxqGtfELwdePpmo3GgaxbyLBOtrtUSJ/su2ShIzgj+6K9J/4RFbLwhbaVFeXE92bm2uC8j728xJY2O0lSedp6g9fSvD/AIB+JJ9C16+0mOy8y3uSqzTFj+7YE4JAUkA9Mn1/L2rWry/vfDd5p9gksGoypLb2xml4DbTtfeOSoHORzx614bag+XoenVg07nrOhWaafo9nYxRiNIIEjVQMBQBjGKK+Sfhn+0D4o0wOLzd4htTEdttd3OyWNgeqzbWYjGchgegxjnJX0sZRikux4cm222eD/FPx5qHi7xleeIdYVZL9ztjUAbLWMElY1wOducbjyT3riYNRuFvY71nZnVw3Xrg5xRRWlk0SnZ6Hqng7XLk6hDqNkkNzsdZfLuY+YiMc9Dkcfqa9ii8arpeiS+IZ7+K+1O5bZEnKqmAMhV7KMAnpk4HHygFFeFKjGWIVN7XPcqSf1f2nWx8xWHnpZKkr3EHmnMcgchH55U4/H6HFFFFe6eEf/9k=);
-	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-	width: 40px;
-	height: 40px;
-	margin: 10px;
-	border-radius: 20px;
-}
+
 .header .userPanel .welcome {
 	font-family: "Roboto", sans-serif;
-	font-size: 14px;
+	font-size: 26px;
 	float: left;
 	height: 40px;
-	padding-top: 10px;
+	padding-top: 15px;
 	color: White;
 }
-.header .userPanel .welcome span {
-	display: block;
-}
-.header .userPanel .welcome .name {
-	font-family: "Roboto", sans-serif;
-	font-size: 26px;
-	margin-top: -5px;
-}
+
 .header .title {
 	width: 100%;
 	height: 100%;
@@ -184,12 +169,17 @@ body {
 	height: 90%
 	margin: auto;
 	border: 0;
-	padding: 15px;
+	padding-top: 0px;
+	padding-left: 50px;
 	color: #FFFFFF;
-	
-	
 	color: White;
 	font-family: "Roboto", sans-serif;
-	font-size: 14px;
+	font-size: 16px;
+}
+
+.photo {
+	height = 40%;
+	width = 40%;
+	padding: 15px;
 }
 

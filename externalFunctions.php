@@ -6,7 +6,7 @@
 	$dbHost = 'localhost';
 	$dbPort = 3306;
 	$mysqli;
-	$urlRoot = "http://localhost:8888/finalProject/";
+	$urlRoot = "http://localhost:8888/finalProject";
 	
 	function startMysqli() {
 		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
@@ -210,24 +210,24 @@ EOT;
 	if ($activeLink == 'profile') {
 		printf('<a href="%s/profile.php?username=%s"> <li class="active"><i class="fa fa-user"></i>Profile</li></a>', $urlRoot, $loggedInUser);
 	} else {
-		printf('<a href="%s/profile.php?username=%s"> <li><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);
+		printf('<a href="%s/profile.php?username=%s"> <li><i class="fa fa-home"></i>Profile</li> </a>', $urlRoot, $loggedInUser);
 	}
 	if ($activeLink == 'wall') {
 		printf('<a href="%s/wall.php?username=%s"> <li class="active"><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);
 	} else {
 		printf('<a href="%s/wall.php?username=%s"> <li><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);
 	}
-	if (activeLink == 'feed') {
+	if ($activeLink == 'feed') {
 		printf('<a href="%s/feed.php"> <li class="active"><i class="fa fa-home"></i>Feed</li> </a>', $urlRoot);
 	} else {
 		printf('<a href="%s/feed.php"> <li><i class="fa fa-home"></i>Feed</li> </a>', $urlRoot);
 	}
-	if (activeLink == 'friends') {
+	if ($activeLink == 'friends') {
 		printf('<a href="%s/friends.php"> <li class="active"><i class="fa fa-group"></i>Friends</li> </a>', $urlRoot, $loggedInUser);
 	} else {
 		printf('<a href="%s/friends.php"> <li><i class="fa fa-group"></i>Friends</li> </a>', $urlRoot, $loggedInUser);
 	}
-	if (activeLink == 'locations') {
+	if ($activeLink == 'locations') {
 		printf('<a href="%s/locations.php"> <li class="active"><i class="fa fa-envelope"></i>Locations</li> </a>', $urlRoot);
 	} else {
 		printf('<a href="%s/locations.php"> <li><i class="fa fa-envelope"></i>Locations</li> </a>', $urlRoot);

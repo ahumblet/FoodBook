@@ -192,7 +192,7 @@
 echo <<< EOT
 		<html>
 		<head>
-		<link rel="stylesheet" href="test.css">
+		<link rel="stylesheet" href="foodbook.css">
 		<style type="text/css">a {text-decoration: none}</style>
 		</head>
 		<body>

@@ -3,7 +3,6 @@
 	
 	session_start();
 	include_once 'externalFunctions.php';
-	
 	startMysqli();
 	
 	if(isset($_POST['login'])) {

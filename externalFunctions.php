@@ -6,6 +6,7 @@
 	$dbHost = 'localhost';
 	$dbPort = 3306;
 	$mysqli;
+	$urlRoot = "http://localhost:8888/finalProject/";
 	
 	function startMysqli() {
 		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
@@ -184,4 +185,74 @@
 			}
 		}
 	}
+	
+	function generateHTMLTop($activeLink) {
+		global $urlRoot, $loggedInUser;
+		
+echo <<< EOT
+		<html>
+		<head>
+		<link rel="stylesheet" href="test.css">
+		<style type="text/css">a {text-decoration: none}</style>
+		</head>
+		<body>
+		<div class="bg"></div>
+		<div class="container">
+		<nav>
+		<div class="search-box">
+		<div><i class="fa fa-search"></i>
+		<input type="search" placeholder="Search"/>
+		</div>
+		</div>
+		<ul class="menu">
+EOT;
+	
+	if ($activeLink == 'profile') {
+		printf('<a href="%s/profile.php?username=%s"> <li class="active"><i class="fa fa-user"></i>Profile</li></a>', $urlRoot, $loggedInUser);
+	} else {
+		printf('<a href="%s/profile.php?username=%s"> <li><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);
+	}
+	if ($activeLink == 'wall') {
+		printf('<a href="%s/wall.php?username=%s"> <li class="active"><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);
+	} else {
+		printf('<a href="%s/wall.php?username=%s"> <li><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);
+	}
+	if (activeLink == 'feed') {
+		printf('<a href="%s/feed.php"> <li class="active"><i class="fa fa-home"></i>Feed</li> </a>', $urlRoot);
+	} else {
+		printf('<a href="%s/feed.php"> <li><i class="fa fa-home"></i>Feed</li> </a>', $urlRoot);
+	}
+	if (activeLink == 'friends') {
+		printf('<a href="%s/friends.php"> <li class="active"><i class="fa fa-group"></i>Friends</li> </a>', $urlRoot, $loggedInUser);
+	} else {
+		printf('<a href="%s/friends.php"> <li><i class="fa fa-group"></i>Friends</li> </a>', $urlRoot, $loggedInUser);
+	}
+	if (activeLink == 'locations') {
+		printf('<a href="%s/locations.php"> <li class="active"><i class="fa fa-envelope"></i>Locations</li> </a>', $urlRoot);
+	} else {
+		printf('<a href="%s/locations.php"> <li><i class="fa fa-envelope"></i>Locations</li> </a>', $urlRoot);
+	}
+	printf('<a href="%s/logoff.php"> <li><i class="fa fa-cog"></i>Log Out</li> </a>', $urlRoot);
+		
+echo <<< EOT
+		</ul>
+		</nav>
+		<div class="header">
+		<div class="userPanel">
+		<div class="pic"></div>
+EOT;
+		
+		printf('<div class="welcome">Welcome %s!</div></div>', $loggedInUser);
+		printf('<div class="title"></div>');
+		printf('<div class="filler">');
+	}
+	
+	function generateHTMLBottom() {
+		printf('</div>');
+		printf('</div>');
+		printf('</div>');
+		printf('</body>');
+		printf('</html>');
+	}
+	
 ?>

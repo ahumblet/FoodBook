@@ -3,18 +3,25 @@
 	$loggedInUser = $_SESSION["loggedInUser"];
 	$wallUsername = $_GET["username"];
 	
-	echo "<link rel='stylesheet' href='login.css'>";
-	
 	include_once 'externalFunctions.php';
 	startMysqli();
 	
-	printf("%s's wall: <br><br>", $wallUsername);
-	$returnFile = "wall.php";
-	newPostForm($returnFile);
+	generateHTMLTop('wall');
 	displayWall();
+	generateHTMLBottom();
 
+	
+	//================== Function Definitions =====================//
+	
+	
 	function displayWall() {
 		global $mysqli, $loggedInUser, $wallUsername;
+		
+		printf("%s's wall: <br><br>", $wallUsername);
+		
+		$returnFile = "wall.php";
+		newPostForm($returnFile);
+		
 		//query all posts on this user's wall
 		$query = sprintf('select * from post where receivingUser = "%s" order by timestamp desc', $wallUsername);
 		$result = $mysqli->query($query);

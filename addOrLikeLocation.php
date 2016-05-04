@@ -1,4 +1,6 @@
 <?php
+	//only php, no html
+	
 	session_start();
 	$loggedInUser = $_SESSION["loggedInUser"];
 	

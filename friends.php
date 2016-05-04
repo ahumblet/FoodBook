@@ -84,7 +84,7 @@
 		}
 		
 		//display non-friends
-		printf("<br>Non-Friends of %s<br>", $loggedInUser);
+		printf("<br>Non-Friends of %s:<br>", $loggedInUser);
 		printf('<form class="login-form" action="requestFriend.php" method="post">');
 		foreach ($nonFriends as &$nonFriend) {
 			printf('<a href="http://localhost:8888/finalProject/profile.php?username=%s">%s</a>', $nonFriend, $nonFriend);

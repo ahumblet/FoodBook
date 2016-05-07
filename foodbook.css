@@ -241,3 +241,19 @@ body {
 	color: #4d0000;
 }
 
+#mapCanvas {
+	width: 300px;
+	height: 200px;
+	float: left;
+}
+#infoPanel {
+	float: left;
+	margin-left: 10px;
+}
+#infoPanel div {
+	margin-bottom: 5px;
+}
+
+
+
+

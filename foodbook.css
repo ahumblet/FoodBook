@@ -184,6 +184,12 @@ body {
 	padding-bottom: 20px;
 }
 
+.subHeader {
+	font-weight: bold;
+	font-size: 16px;
+	padding-bottom: 5px;
+}
+
 .postHeader {
 	color: #4d0000;
 	margin-bottom: 10px;
@@ -224,5 +230,12 @@ body {
 #invisibleSubmit {
 	display: none;
 	visibility: hidden;
+}
+
+.location {
+	margin-top: 10px;
+	border: 1px solid #CE6339;
+	padding: 10px; 10px; 10px; 10px;
+	color: #4d0000;
 }
 

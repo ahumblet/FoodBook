@@ -31,20 +31,25 @@
 		printf("<div class='pageHeader'>Locations</div>");
 		
 		//form to create new location
+		printf('<div class="location">');
+		printf('<div class="subHeader">New Location</div>');
 		printf('<form action="addOrLikeLocation.php" method="post">');
 		printf('Name: <input type="text" name="locName"><br>');
 		printf('Longitude: <input type="text" name="longitude"><br>');
 		printf('Latitude: <input type="text" name="latitude"><br>');
-		printf('<input type="submit" value="Add Location" name="addLocation"> <br>');
-		printf('</form><br>');
+		printf('<input type="submit" value="Add Location" name="addLocation">');
+		printf('</form>');
+		printf("</div>");
 		
 		//show locations with like buttons
 		printf('<form action="addOrLikeLocation.php" method="post">');
 		for ($i = 0; $i < count($locations); ++$i) {
+			printf('<div class="location">');
 			$location = $locations[$i];
 			$locationId = $locationIds[$i];
 			printf("%s", $location);
-			printf('<button name="likeLocation" value="%s" type="submit">Like</button><br>', $locationId);
+			printf('<button name="likeLocation" value="%s" type="submit">Like</button>', $locationId);
+			printf("</div>");
 			
 		}
 		printf('</form>');

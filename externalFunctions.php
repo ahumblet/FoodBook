@@ -122,6 +122,23 @@
 		printf("</div>");
 	}
 	
+	function displayPostOnly($post) {
+		global $mysqli, $loggedInUser, $wallUsername;
+		
+		printf("<div class='post'>");
+		printf("<div class='postHeader'>%s %s says:<br></div>", $post["timestamp"], $post["postingUser"]);
+		printf("%s<br>", $post["title"]);
+		printf("%s<br>", $post["textContent"]);
+		//lookup location name if there is one
+		if ($post["location"] != '') {
+			$query = sprintf("select * from location where interactiveID = '%s'", $post["location"]);
+			$locationResult = $mysqli->query($query);
+			$locationRow = $locationResult->fetch_assoc();
+			printf("Location: %s<br>", $locationRow["locName"]);
+		}
+		printf("</div>");
+	}
+	
 	
 	function displayLikesAndDislikes($item) {
 		global $mysqli;
@@ -177,6 +194,21 @@
 		printf('</form>');
 	}
 	
+	function displayCommentOnly($comment) {
+		global $mysqli, $loggedInUser, $wallUsername;
+		printf('<div class="comment">');
+		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
+		printf("%s", $comment["textContent"]);
+		//print location if there is one, requires looking up the location name
+		if ($comment["location"] != '') {
+			$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
+			$locationResult = $mysqli->query($query);
+			$locationRow = $locationResult->fetch_assoc();
+			printf("Location: %s<br>", $locationRow["locName"]);
+		}
+		printf("</div><br>");
+	}
+	
 	function displayComments($item, $returnFile) {
 		global $mysqli, $loggedInUser, $wallUsername;
 		
@@ -213,9 +245,14 @@ echo <<< EOT
 		<div class="container">
 		<nav>
 		<div class="search-box">
+		
+		
+		<form action="search.php" method="post">
 		<div><i class="fa fa-search"></i>
-		<input type="search" placeholder="Search"/>
+		<input type="text" name="searchTerm" placeholder="Search"/>
+		<input type="submit" id="invisibleSubmit"/>
 		</div>
+		</form>
 		</div>
 		<ul class="menu">
 EOT;

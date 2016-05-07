@@ -79,6 +79,9 @@
 		
 		//link to wall
 	 printf("<br><br><a href='http://localhost:8888/finalProject/wall.php?username=%s'>View %s's wall</a>", $profileUsername, $profileUsername);
+
+		//link to wall
+	 printf("<br><br><a href='http://localhost:8888/finalProject/data.php?username=%s'>View %s's stats</a>", $profileUsername, $profileUsername);
 		
 		printf('</div>');
 	}

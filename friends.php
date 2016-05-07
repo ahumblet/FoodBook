@@ -59,16 +59,19 @@
 		global $loggedInUser, $friends, $invites, $pendingFriends, $nonFriends;
 		
 		//title
-		printf("Friends of %s<br>", $loggedInUser);
+		printf("<div class='pageHeader'>%s's friends</div>", $loggedInUser);
 		
 		//display all friends as links
-		printf("<br>You are friends with: <br>");
+		printf('<div class="post">');
+		printf("<div class='postHeader'> You are friends with:</div> ");
 		foreach ($friends as &$friend) {
 			printf('<a href="$urlRoot/finalProject/profile.php?username=%s">%s</a><br>', $friend, $friend);
 		}
+		printf("</div>");
 		
 		//display invites with form to accept
-		printf("<br>You have friendship invites from: <br>");
+		printf('<div class="post">');
+		printf("<div class='postHeader'> You have friendship invites from:</div> ");
 		printf('<form class="login-form" action="acceptFriend.php" method="post">');
 		foreach ($invites as &$invite) {
 			printf('<a href="$urlRoot/profile.php?username=%s">%s</a>', $invite, $invite);
@@ -76,21 +79,26 @@
 			printf('<button name="rejectedFriend" value="%s" type="submit">reject friend</button><br>', $invite);
 		}
 		printf('</form>');
+		printf("</div>");
 		
 		//display pending requests
-		printf("<br>Waiting for responses from:<br>");
+		printf('<div class="post">');
+		printf("<div class='postHeader'> Waiting for responses from:</div>");
 		foreach ($pendingFriends as $pendingFriend) {
 			printf('<a href="$urlRoot/profile.php?username=%s">%s</a><br>', $pendingFriend, $pendingFriend);
 		}
+		printf("</div>");
 		
 		//display non-friends
-		printf("<br>Non-Friends of %s:<br>", $loggedInUser);
+		printf('<div class="post">');
+		printf("<div class='postHeader'> Non-Friends of %s:</div>", $loggedInUser);
 		printf('<form class="login-form" action="requestFriend.php" method="post">');
 		foreach ($nonFriends as &$nonFriend) {
-			printf('<a href="http://localhost:8888/finalProject/profile.php?username=%s">%s</a>', $nonFriend, $nonFriend);
-			printf('<button name="requestedFriend" value="%s" type="submit">add friend</button><br>', $nonFriend);
+			printf('<a href="http://localhost:8888/finalProject/profile.php?username=%s">%s</a>&nbsp', $nonFriend, $nonFriend);
+			printf('<button name="requestedFriend" value="%s" type="submit">add friend</button>', $nonFriend);
 		}
 		printf('</form>');
+		printf("</div>");
 	}
 ?>
 

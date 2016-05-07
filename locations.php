@@ -28,7 +28,7 @@
 	function generateLocationsPage() {
 		global $loggedInUser, $locations, $locationIds;
 		
-		printf("Locations:<br><br>");
+		printf("<div class='pageHeader'>Locations</div>");
 		
 		//form to create new location
 		printf('<form action="addOrLikeLocation.php" method="post">');

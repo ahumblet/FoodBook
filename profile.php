@@ -51,11 +51,16 @@
 	function generateProfileHTML() {
 		global $photo, $firstName, $lastName, $age, $email, $type, $loggedInUser, $profileUsername, $likedLocations;
 		
+		
+		printf('<div class="post">');
+		
 		if ($photo != 'NULL') {
-			printf('<div class="photo">');
-			echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="400" width="400" align="right"/> <br>';
+			printf('<div class="profilePhoto">');
+			//echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '"';
+						echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="400" width="400" align="right"/> <br>';
 			printf("</div>");
 		}
+		printf("<div class='pageHeader'>%s's profile</div>", $profileUsername);
 		printf("First Name: %s <br>", $firstName);
 		printf("Last Name: %s <br>", $lastName);
 		printf("Age: %s <br>", $age);
@@ -75,5 +80,7 @@
 		
 		//link to wall
 	 printf("<br><br><a href='http://localhost:8888/finalProject/wall.php?username=%s'>View %s's wall</a>", $profileUsername, $profileUsername);
+		
+		printf('</div>');
 	}
 ?>

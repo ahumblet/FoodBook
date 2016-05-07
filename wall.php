@@ -17,7 +17,7 @@
 	function displayWall() {
 		global $mysqli, $loggedInUser, $wallUsername;
 		
-		printf("%s's wall: <br><br>", $wallUsername);
+		printf("<div class='pageHeader'>%s's wall </div>", $wallUsername);
 		
 		$returnFile = "wall.php";
 		newPostForm($returnFile);
@@ -33,7 +33,7 @@
 				$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 				if ($permission == True) {
 					displayPostWithButtons($post, $returnFile);
-					displayLikesAndDislikes($post);
+					//displayLikesAndDislikes($post);
 					displayComments($post, $returnFile);
 				}
 			}

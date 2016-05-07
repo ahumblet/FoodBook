@@ -59,7 +59,9 @@
 	function newPostForm($returnFile) {
 		//form to create a new post
 		global $mysqli, $loggedInUser, $wallUsername;
-		printf("Write on %s's wall: <br>", $wallUsername);
+		
+		printf("<div class='post'>");
+		printf("<div class='postHeader'>Write on %s's wall: </div>", $wallUsername);
 		printf('<form action="addPost.php" method="post">');
 		printf('Title: <input type="text" name="title"><br>');
 		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
@@ -88,14 +90,16 @@
 		printf('<input type="hidden" name="poster" value="%s">', $loggedInUser);
 		printf('<input type="hidden" name="postee" value="%s">', $wallUsername);
 		printf('<input type="hidden" name="returnFile" value="%s">', $returnFile);
-		printf('<input type="submit" value="POST"> <br>');
-		printf('</form><br>');
+		printf('<input type="submit" value="POST">');
+		printf('</form>');
+		printf("</div>");
 	}
 	
 	function displayPostWithButtons($post, $returnFile) {
 		global $mysqli, $loggedInUser, $wallUsername;
 		
-		printf("<br><br>%s %s says:<br>", $post["timestamp"], $post["postingUser"]);
+		printf("<div class='post'>");
+		printf("<div class='postHeader'>%s %s says:<br></div>", $post["timestamp"], $post["postingUser"]);
 		printf("%s<br>", $post["title"]);
 		printf("%s<br>", $post["textContent"]);
 		//lookup location name if there is one
@@ -114,13 +118,19 @@
 		printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
 		printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
 		printf('</form>');
+		displayLikesAndDislikes($post);
+		printf("</div>");
 	}
 	
 	
 	function displayLikesAndDislikes($item) {
 		global $mysqli;
 		
+		//not sure this is needed
+		restartMysqli();
+		
 		//show likes for this post
+		printf('<div class="likeSection">');
 		$query = sprintf("select * from interactiveLike where likedInteractiveID = '%s' and value = 'like'", $item["interactiveID"]);
 		$likeResults = $mysqli->query($query);
 		if ($likeResults->num_rows > 0 ) {
@@ -140,12 +150,13 @@
 			}
 			printf("<br>");
 		}
+		printf("</div>");
 	}
 	
 	function displayCommentWithButtons($comment, $returnFile) {
 		global $mysqli, $loggedInUser, $wallUsername;
-		
-		printf("<br>&nbsp&nbsp&nbsp%s %s:&nbsp&nbsp&nbsp%s<br>", $comment["timestamp"], $comment["postingUser"], $comment["textContent"]);
+		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
+		printf("%s", $comment["textContent"]);
 		//print location if there is one, requires looking up the location name
 		if ($comment["location"] != '') {
 			$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
@@ -178,10 +189,12 @@
 			$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 			if ($permission == True) {
 				//display the comment:
+				printf('<div class="comment">');
 				displayCommentWithButtons($comment, $returnFile);
 				//display likes, dislikes
 				displayLikesAndDislikes($comment);
 				displayComments($comment, $returnFile);
+				printf("</div>");
 			}
 		}
 	}

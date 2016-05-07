@@ -16,7 +16,7 @@
 	function displayFeed() {
 		global $mysqli, $loggedInUser;
 		
-		printf("%s's feed: <br><br>", $loggedInUser);
+		printf("<div class='pageHeader'>%s's feed </div>", $loggedInUser);
 		
 		$returnFile = "feed.php";
 		$query = sprintf("select * from post");
@@ -28,7 +28,7 @@
 				$permission = hasPermission($loggedInUser , $postingUser, $visibility);
 				if ($permission == True) {
 					displayPostWithButtons($post, $returnFile);
-					displayLikesAndDislikes($post);
+					//displayLikesAndDislikes($post);
 					displayComments($post, $returnFile);
 				}
 			}

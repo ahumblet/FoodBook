@@ -12,7 +12,7 @@ function geocodePosition(pos) {
 					 });
 }
 
-function updateMarkerStatus(str) {
+/*function updateMarkerStatus(str) {
 	document.getElementById('markerStatus').innerHTML = str;
 }
 
@@ -21,7 +21,7 @@ function updateMarkerPosition(latLng) {
 												 latLng.lat(),
 												 latLng.lng()
 												 ].join(', ');
-}
+}*/
 
 function updateFormFields(latLng) {
 	document.getElementById("Longitude").value = latLng.lng();
@@ -48,7 +48,6 @@ function initialize() {
 										});
 	
 	// Update current position info.
-	updateMarkerPosition(latLng);
 	updateFormFields(latLng);
 	geocodePosition(latLng);
 	
@@ -58,13 +57,10 @@ function initialize() {
 								  });
 	
 	google.maps.event.addListener(marker, 'drag', function() {
-								  updateMarkerStatus('Dragging...');
-								  updateMarkerPosition(marker.getPosition());
 								  updateFormFields(marker.getPosition());
 								  });
 	
 	google.maps.event.addListener(marker, 'dragend', function() {
-								  updateMarkerStatus('Drag ended');
 								  geocodePosition(marker.getPosition());
 								  });
 }

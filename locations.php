@@ -29,13 +29,19 @@
 		//form to create new location
 		printf('<div class="location">');
 		printf('<div class="subHeader">New Location</div>');
-		printf('<form action="addOrLikeLocation.php" method="post">');
-		printf('Name: <input type="text" name="locName"><br>');
-		printf('Longitude: <input type="text" name="longitude"><br>');
-		printf('Latitude: <input type="text" name="latitude"><br>');
-		printf('<input type="submit" value="Add Location" name="addLocation">');
+
+		printf('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
+		printf('<script SRC="locationTest.js"> </script>');
+		printf('<div id="mapCanvas"></div>');
+		printf('<form id="locationForm" action="addOrLikeLocation.php" method="post">');
+		printf('&nbsp;&nbsp;Location Name <input type="text" name="locName"><br>');
+		printf('&nbsp;&nbsp;Longitude <input type="text" name="longitude" id="Longitude"><br>');
+		printf('&nbsp;&nbsp;Latitude <input type="text" name="latitude" id="Latitude"><br>');
+		printf('&nbsp;&nbsp;<input type="submit" value="Add Location"><br>');
 		printf('</form>');
-		printf("</div>");
+		printf('<br><br><br><br><br><br>');
+		
+		printf('</div>');
 		
 		//show locations with like buttons
 		printf('<form action="addOrLikeLocation.php" method="post">');

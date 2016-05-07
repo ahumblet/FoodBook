@@ -277,7 +277,7 @@ EOT;
 	if ($activeLink == 'profile') {
 		printf('<a href="%s/profile.php?username=%s"> <li class="active"><i class="fa fa-user"></i>Profile</li></a>', $urlRoot, $loggedInUser);
 	} else {
-		printf('<a href="%s/profile.php?username=%s"> <li><i class="fa fa-home"></i>Profile</li> </a>', $urlRoot, $loggedInUser);
+		printf('<a href="%s/profile.php?username=%s"> <li><i class="fa fa-user"></i>Profile</li> </a>', $urlRoot, $loggedInUser);
 	}
 	if ($activeLink == 'wall') {
 		printf('<a href="%s/wall.php?username=%s"> <li class="active"><i class="fa fa-home"></i>Wall</li> </a>', $urlRoot, $loggedInUser);

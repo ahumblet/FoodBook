@@ -8,9 +8,12 @@
 	<div class="container">
 		<nav>
 			<div class="search-box">
+				<form action="search.php" method="post">
 				<div><i class="fa fa-search"></i>
-					<input type="search" placeholder="Search"/>
+						<input type="text" name="searchTerm" placeholder="Search"/>
+						<input type="submit" id="invisibleSubmit"/>
 				</div>
+				</form>
 			</div>
 			<ul class="menu">
 				<a href="login.php"> <li><i class="fa fa-user"></i>Profile</li> </a>

@@ -6,7 +6,7 @@
 	startMysqli();
 	
 	//get locations
-	$query = sprintf("select * from location");
+	$query = sprintf("select * from location order by locName");
 	$result = $mysqli->query($query);
 	$locations = array();
 	if ($result->num_rows > 0) {
@@ -31,16 +31,15 @@
 		printf('<div class="subHeader">New Location</div>');
 
 		printf('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
-		printf('<script SRC="locationTest.js"> </script>');
+		printf('<script SRC="locationMap.js"> </script>');
 		printf('<div id="mapCanvas"></div>');
 		printf('<form id="locationForm" action="addOrLikeLocation.php" method="post">');
 		printf('&nbsp;&nbsp;Location Name <input type="text" name="locName"><br>');
 		printf('&nbsp;&nbsp;Longitude <input type="text" name="longitude" id="Longitude"><br>');
 		printf('&nbsp;&nbsp;Latitude <input type="text" name="latitude" id="Latitude"><br>');
-		printf('&nbsp;&nbsp;<input type="submit" value="Add Location"><br>');
+		printf('&nbsp;&nbsp;<input type="submit" value="Add Location" name="addLocation"><br>');
 		printf('</form>');
 		printf('<br><br><br><br><br><br>');
-		
 		printf('</div>');
 		
 		//show locations with like buttons
@@ -52,9 +51,6 @@
 			printf('</div>');
 		}
 		printf('</form>');
-		
-		//google map
-		printf('<iframe width="425" height="350" align="right" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.nz/maps?q=120+Mayoral+Dr,+Auckland+University+of+Technology+-+City+Campus,+Auckland,+1010&amp;ie=UTF8&amp;hq=&amp;hnear=120+Mayoral+Dr,+Auckland,+1010&amp;t=m&amp;z=13&amp;ll=-36.859383,174.777836&amp;output=embed"></iframe><br />');
 	}
 	
 ?>

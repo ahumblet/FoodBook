@@ -231,6 +231,23 @@
 		}
 	}
 	
+	function displayLimitedProfile($jointEntry) {
+		printf('<div class="post">');
+		/*if ($photo != 'NULL') {
+			printf('<div class="profilePhoto">');
+			//echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '"';
+			echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="400" width="400" align="right"/> <br>';
+			printf("</div>");
+		}*/
+		printf("<div class='subHeader'>%s's profile</div>", $jointEntry["username"]);
+		printf("First Name: %s <br>", $jointEntry["firstName"]);
+		printf("Last Name: %s <br>", $jointEntry["lastName"]);
+		printf("Age: %s <br>", $jointEntry["age"]);
+		printf("Email: %s <br>", $jointEntry["email"]);
+		printf("Type: %s <br>", $jointEntry["type"]);		
+		printf('</div>');
+	}
+	
 	function generateHTMLTop($activeLink) {
 		global $urlRoot, $loggedInUser;
 		

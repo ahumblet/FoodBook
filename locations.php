@@ -9,13 +9,9 @@
 	$query = sprintf("select * from location");
 	$result = $mysqli->query($query);
 	$locations = array();
-	$locationIds = array();
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-			$locName = $row["locName"];
-			$locationId = $row["interactiveID"];
-			array_push($locations, $locName);
-			array_push($locationIds, $locationId);
+			array_push($locations, $row);
 		}
 	}
 	
@@ -43,14 +39,11 @@
 		
 		//show locations with like buttons
 		printf('<form action="addOrLikeLocation.php" method="post">');
-		for ($i = 0; $i < count($locations); ++$i) {
+		foreach ($locations as &$location) {
 			printf('<div class="location">');
-			$location = $locations[$i];
-			$locationId = $locationIds[$i];
-			printf("%s", $location);
-			printf('<button name="likeLocation" value="%s" type="submit">Like</button>', $locationId);
-			printf("</div>");
-			
+			printf("%s [%s, %s] ", $location["locName"], $location["longitude"], $location["latitude"]);
+			printf('<button name="likeLocation" value="%s" type="submit">Like</button>', $location["interactiveID"]);
+			printf('</div>');
 		}
 		printf('</form>');
 		

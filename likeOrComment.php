@@ -1,9 +1,10 @@
 <?php
 	session_start();
-	$loggedInUser = $_SESSION["loggedInUser"];
-	
 	include_once 'externalFunctions.php';
 	startMysqli();
+	
+	$loggedInUser = $_SESSION["loggedInUser"];
+	
 	
 	if (isset($_POST["Like"])) {
 		$interactiveId = $_POST["interactiveId"];
@@ -27,36 +28,31 @@
 		$likedUser = $_POST["likedUser"];
 		$returnFile = $_POST["returnFile"];
 		$wallUser = $likedUser;
-		printf('<form action="likeOrComment.php" method="post" id="like">');
-		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
-		printf('Photo: <input type="file" name="photo"> <br>');
-		//drop down for location
+	
+		//create array of locations
 		$query = sprintf("select * from location");
 		$locationResults = $mysqli->query($query);
-		printf('Location: <select name="location">');
-		printf('<option value=""></option>');
+		$locations = array();
 		if ($locationResults->num_rows > 0) {
 			while ($location = $locationResults->fetch_assoc()) {
-				printf('<option value="%s">%s</option>', $location["locName"], $location["locName"]);
+				array_push($locations, $location["locName"]);
 			}
 		}
-		printf('</select><br>');
-		//drop down for visibility
+		
+		//create array of visibilities
 		$query = sprintf("select * from visibility");
 		$visibilityResults = $mysqli->query($query);
-		printf('Visibility: <select name="visibility">');
+		$visibilities = array();
 		if ($locationResults->num_rows > 0) {
 			while ($visibilityRow = $visibilityResults->fetch_assoc()) {
-				printf('<option value="%s">%s</option>', $visibilityRow["level"], $visibilityRow["level"]);
+				array_push($visibilities, $visibilityRow["level"]);
 			}
 		}
-		printf('</select><br>');
-		printf('<input type="hidden" name="poster" value="%s">', $likingUser);
-		printf('<input type="hidden" name="postee" value="%s">', $likedUser);
-		printf('<input type="hidden" name="returnFile" value="%s">', $returnFile);
-		printf('<input type="hidden" value="%s" name="interactiveId">', $interactiveId);
-		printf('<button type="submit" value="Comment" name="PostComment">POST</button>');
-		printf('</form>');
+		
+		generateHTMLTop('feed');
+		displayCommentForm();
+		generateHTMLBottom();
+
 		
 	} elseif (isset($_POST["PostComment"])) {
 		$poster = $_POST["poster"];
@@ -73,7 +69,7 @@
 			$row = $result->fetch_assoc();
 			$locationId = $row["interactiveID"];
 		}
-		//slopping way of dealing with the fact that NULL can't have quotes around it
+		//sloppy way of dealing with the fact that NULL can't have quotes around it
 		if ($locationId == 'NULL') {
 			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '',  'everyone', NULL, now())", $poster, $interactiveId, $textContent);
 		} else {
@@ -89,7 +85,39 @@
 	$headerString = sprintf("Location: %s?username=%s", $returnFile, $wallUser);
 	header($headerString);
 	exit;
+
+	function displayCommentForm() {
+		global $locations, $visibilities, $likingUser, $likedUser, $returnFile, $interactiveId;
+		
+		//form to create a comment
+		printf('<form action="likeOrComment.php" method="post" id="like">');
+		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
+		printf('Photo: <input type="file" name="photo"> <br>');
+		//location drop down
+		printf('Location: <select name="location">');
+		printf('<option value=""></option>');
+		foreach ($locations as &$location) {
+			printf('<option value="%s">%s</option>', $location, $location);
+		}
+		printf('</select><br>');
+		
+		//drop down for visibility
+		printf('Visibility: <select name="visibility">');
+		foreach ($visibilities as &$visibility) {
+			printf('<option value="%s">%s</option>', $visibility, $visibility);
+		}
+		printf('</select><br>');
+		printf('<input type="hidden" name="poster" value="%s">', $likingUser);
+		printf('<input type="hidden" name="postee" value="%s">', $likedUser);
+		printf('<input type="hidden" name="returnFile" value="%s">', $returnFile);
+		printf('<input type="hidden" value="%s" name="interactiveId">', $interactiveId);
+		printf('<button type="submit" value="Comment" name="PostComment">POST</button>');
+		printf('</form>');
+	}
 ?>
+
+
+
 
 
 

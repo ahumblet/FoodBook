@@ -30,16 +30,17 @@
 		
 		global $firstName, $lastName, $age, $email, $visibility, $visibilities;
 		
-		printf("<h1> Edit Profile </h1><br>");
+		printf("<div class='post'>");
+		printf("<h1> Edit Profile </h1>");
 		
 		//edit profile form
 		printf('<form action="submitEditProfile.php" method="post" enctype="multipart/form-data">');
-		printf('<br> First Name : <input type="text" name="firstName" value="%s"/>', $firstName);
-		printf('<br> Last Name : <input type="text" name="lastName" value="%s"/>', $lastName);
-		printf('<br> Age : <input type="text" name="age" value="%s"/>', $age);
-		printf('<br> Email : <input type="text" name="email" value="%s"/>', $email);
+		printf('<br> First Name: <input type="text" name="firstName" value="%s"/>', $firstName);
+		printf('<br> Last Name: <input type="text" name="lastName" value="%s"/>', $lastName);
+		printf('<br> Age: <input type="text" name="age" value="%s"/>', $age);
+		printf('<br> Email: <input type="text" name="email" value="%s"/>', $email);
 		printf('<br> Type: <select name="type"> <option value="client">Client</option> <option value="nutritionist">Nutritionist</option> </select>');
-		printf('<br> Visibility : <select name="visibility">');
+		printf('<br> Visibility: <select name="visibility">');
 		foreach ($visibilities as &$level) {
 			printf('<option value="%s" ', $level);
 			if ($level == $visibility) {
@@ -53,7 +54,8 @@
 		printf('<br> <input type="submit" name="submit" value="Submit"> </form>');
 		printf('<form action="submitEditProfile.php" method="post" enctype="multipart/form-data"> Photo:');
 		printf('<input type="file" name="fileToUpload" id="fileToUpload">');
-		printf('<input type="submit" name="submitPhoto" value="submitPhoto" >');
+		printf('<input type="submit" name="submitPhoto" value="submitPhoto">');
 		printf('</form>');
+		printf('</div>');
 	}
 ?>

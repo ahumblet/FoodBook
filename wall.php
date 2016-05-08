@@ -34,7 +34,6 @@
 				$permission = hasPermission($loggedInUser, $postingUser, $visibility);
 				if ($permission == True) {
 					displayPostWithButtons($post, $returnFile);
-					//displayLikesAndDislikes($post);
 					displayComments($post, $returnFile);
 				}
 			}

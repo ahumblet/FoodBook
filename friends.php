@@ -24,7 +24,7 @@
 	if ($invitesResult->num_rows > 0) {
 		while($row = $invitesResult->fetch_assoc()) {
 			$invite = $row["username1"];
-			array_push($invites, $invites);
+			array_push($invites, $invite);
 		}
 	}
 	
@@ -96,7 +96,7 @@
 		printf('<form class="login-form" action="requestFriend.php" method="post">');
 		foreach ($nonFriends as &$nonFriend) {
 			printf('<a href="http://localhost:8888/finalProject/profile.php?username=%s">%s</a>&nbsp', $nonFriend, $nonFriend);
-			printf('<button name="requestedFriend" value="%s" type="submit">add friend</button>', $nonFriend);
+			printf('<button name="requestedFriend" value="%s" type="submit">add friend</button><br>', $nonFriend);
 		}
 		printf('</form>');
 		printf("</div>");

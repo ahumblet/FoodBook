@@ -50,7 +50,7 @@
 		printf('</select>');
 	
 		//photo upload and submission form
-		printf('<br> <button type="submit" name="submit" value="submit">Submit</button> </form>');
+		printf('<br> <input type="submit" name="submit" value="Submit"> </form>');
 		printf('<form action="submitEditProfile.php" method="post" enctype="multipart/form-data"> Photo:');
 		printf('<input type="file" name="fileToUpload" id="fileToUpload">');
 		printf('<input type="submit" name="submitPhoto" value="submitPhoto" >');

@@ -21,7 +21,7 @@
 		printf("<div class='pageHeader'>%s's feed </div>", $loggedInUser);
 		
 		$returnFile = "feed.php";
-		$query = sprintf("select * from post");
+		$query = sprintf("select * from post order by timestamp desc");
 		$result = $mysqli->query($query);
 		if ($result->num_rows > 0) {
 			while ($post = $result->fetch_assoc()) {

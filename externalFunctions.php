@@ -74,7 +74,11 @@
 		printf("<div class='postHeader'>Write on %s's wall: </div>", $wallUsername);
 		printf('<form action="addPost.php" method="post">');
 		printf('Title: <input type="text" name="title"><br>');
-		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
+
+		printf('Content: <input type="textarea" name="content"><br>');
+		
+		
+		//		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
 		printf('Photo: <input type="file" name="photo"> <br>');
 		$query = sprintf("select * from location");
 		//drop down for locations
@@ -124,9 +128,9 @@
 		printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
 		printf('<input type="hidden" value="%s" name="interactiveId">', $post["interactiveID"]);
 		printf('<input type="hidden" value="%s" name="returnFile">', $returnFile);
-		printf('<button type="submit" value="Like" name="Like">Like</button>');
-		printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
-		printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
+		printf('<input type="submit" value="Like" name="Like">');
+		printf('<input type="submit" value="Dislike" name="Dislike">');
+		printf('<input type="submit" value="Comment" name="Comment">');
 		printf('</form>');
 		displayLikesAndDislikes($post);
 		printf("</div>");
@@ -183,7 +187,7 @@
 	function displayCommentWithButtons($comment, $returnFile) {
 		global $mysqli, $loggedInUser, $wallUsername;
 		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
-		printf("%s", $comment["textContent"]);
+		printf("%s<br>", $comment["textContent"]);
 		//print location if there is one, requires looking up the location name
 		if ($comment["location"] != '') {
 			$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
@@ -198,9 +202,9 @@
 		printf('<input type="hidden" value="%s" name="likedUser">', $wallUsername);
 		printf('<input type="hidden" value="%s" name="interactiveId">', $commentId);
 		printf('<input type="hidden" value="%s" name="returnFile">', $returnFile);
-		printf('<button type="submit" value="Like" name="Like">Like</button>');
-		printf('<button type="submit" value="Dislike" name="Dislike">Dislike</button>');
-		printf('<button type="submit" value="Comment" name="Comment">Comment</button>');
+		printf('<input type="submit" value="Like" name="Like">');
+		printf('<input type="submit" value="Dislike" name="Dislike">');
+		printf('<input type="submit" value="Comment" name="Comment">');
 		printf('</form>');
 	}
 	

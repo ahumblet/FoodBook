@@ -5,6 +5,7 @@
 	$profileUsername = $_GET["username"];
 	
 	include_once 'externalFunctions.php';
+	checkLoggedIn();
 	startMysqli();
 	
 	//get the profile entry

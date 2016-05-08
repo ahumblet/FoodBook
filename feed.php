@@ -1,9 +1,11 @@
 <?php
 	session_start();
+	$loggedInUser = $_SESSION["loggedInUser"];
+	
 	include_once 'externalFunctions.php';
+	checkLoggedIn();
 	startMysqli();
 	
-	$loggedInUser = $_SESSION["loggedInUser"];
 	$wallUsername = $_GET["username"];
 	
 	generateHTMLTop('feed');

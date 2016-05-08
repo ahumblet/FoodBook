@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	$loggedInUser = $_SESSION["loggedInUser"];
+	checkLoggedIn();
 
 	include_once 'externalFunctions.php';
 	startMysqli();

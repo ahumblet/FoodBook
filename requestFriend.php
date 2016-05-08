@@ -3,6 +3,7 @@
 	$loggedInUser = $_SESSION["loggedInUser"];
 	
 	include_once 'externalFunctions.php';
+	checkLoggedIn();
 	startMysqli();
 	
 	$requestedFriend = $_POST["requestedFriend"];

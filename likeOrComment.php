@@ -1,10 +1,9 @@
 <?php
 	session_start();
-	include_once 'externalFunctions.php';
-	startMysqli();
-	
 	$loggedInUser = $_SESSION["loggedInUser"];
-	
+	include_once 'externalFunctions.php';
+	checkLoggedIn();
+	startMysqli();
 	
 	if (isset($_POST["Like"])) {
 		$interactiveId = $_POST["interactiveId"];

@@ -4,6 +4,7 @@
 	$wallUsername = $_GET["username"];
 	
 	include_once 'externalFunctions.php';
+	checkLoggedIn();
 	startMysqli();
 	
 	generateHTMLTop('wall');

@@ -3,6 +3,7 @@
 	$loggedInUser = $_SESSION["loggedInUser"];
 	
 	include_once 'externalFunctions.php';
+	checkLoggedIn();
 	startMysqli();
 	
 	//get friends
@@ -65,7 +66,7 @@
 		printf('<div class="post">');
 		printf("<div class='postHeader'> You are friends with:</div> ");
 		foreach ($friends as &$friend) {
-			printf('<a href="$urlRoot/finalProject/profile.php?username=%s">%s</a><br>', $friend, $friend);
+			printf('<a href="%s/finalProject/profile.php?username=%s">%s</a><br>', $urlRoot, $friend, $friend);
 		}
 		printf("</div>");
 		
@@ -74,7 +75,7 @@
 		printf("<div class='postHeader'> You have friendship invites from:</div> ");
 		printf('<form class="login-form" action="acceptFriend.php" method="post">');
 		foreach ($invites as &$invite) {
-			printf('<a href="$urlRoot/profile.php?username=%s">%s</a>', $invite, $invite);
+			printf('<a href="%s/profile.php?username=%s">%s</a>', $urlRoot, $invite, $invite);
 			printf('<button name="acceptedFriend" value="%s" type="submit">accept friend</button>', $invite);
 			printf('<button name="rejectedFriend" value="%s" type="submit">reject friend</button><br>', $invite);
 		}
@@ -85,7 +86,7 @@
 		printf('<div class="post">');
 		printf("<div class='postHeader'> Waiting for responses from:</div>");
 		foreach ($pendingFriends as $pendingFriend) {
-			printf('<a href="$urlRoot/profile.php?username=%s">%s</a><br>', $pendingFriend, $pendingFriend);
+			printf('<a href="%s/profile.php?username=%s">%s</a><br>', $urlRoot, $pendingFriend, $pendingFriend);
 		}
 		printf("</div>");
 		

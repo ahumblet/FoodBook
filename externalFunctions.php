@@ -22,6 +22,16 @@
 		$mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $db);
 	}
 	
+	function checkLoggedIn() {
+		global $loggedInUser;
+		if ($loggedInUser == '') {
+			$headerString = sprintf("Location: login.php");
+			header($headerString);
+			exit;
+		}
+	}
+	
+	
 	//is user1 allowed to see user2's content based on this visibility?
 	function hasPermission($user1, $user2, $level)
 	{

@@ -5,6 +5,7 @@
 	$loggedInUser = $_SESSION["loggedInUser"];
 	
 	include_once 'externalFunctions.php';
+	checkLoggedIn();
 	startMysqli();
 	
 	//add a new location entry

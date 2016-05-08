@@ -4,6 +4,7 @@
 	startMysqli();
 	
 	$loggedInUser = $_SESSION["loggedInUser"];
+	checkLoggedIn();
 	
 	//get the profile entry
 	$query = sprintf("select * from profile natural join user where profile.username ='%s'", $loggedInUser);

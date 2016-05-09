@@ -32,7 +32,7 @@
 				$visibility = $post["visibility"];
 				$postingUser = $post["postingUser"];
 				$permission = hasPermission($loggedInUser, $postingUser, $visibility);
-				if ($permission == True) {
+				if ($permission == TRUE) {
 					displayPostWithButtons($post, $returnFile);
 					displayComments($post, $returnFile);
 				}

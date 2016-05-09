@@ -28,7 +28,7 @@
 				$postingUser = $post["postingUser"];
 				$visibility = $post["visibility"];
 				$permission = hasPermission($loggedInUser , $postingUser, $visibility);
-				if ($permission == True) {
+				if ($permission == TRUE) {
 					displayPostWithButtons($post, $returnFile);
 					//displayLikesAndDislikes($post);
 					displayComments($post, $returnFile);

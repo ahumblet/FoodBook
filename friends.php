@@ -40,7 +40,7 @@
 	}
 	
 	//get non-friends
-	$query = sprintf("select username from user where username != '%s' and username not in (select A.username2 from friendship as A join friendship as B where A.username1 = B.username2 and A.username2 != B.username1 and A.username1 = '%s')", $loggedInUser, $loggedInUser);
+	$query = sprintf("select username from user where username != '%s' and username not in (select A.username2 from friendship as A join friendship as B where A.username1 = B.username2 and A.username2 = B.username1 and A.username1 = '%s')", $loggedInUser, $loggedInUser);
 	$nonFriendsResult = $mysqli->query($query);
 	$nonFriends = array();
 	if ($nonFriendsResult->num_rows > 0) {

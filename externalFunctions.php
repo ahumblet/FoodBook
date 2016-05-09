@@ -15,7 +15,7 @@
 	
 	function restartMysqli() {
 		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
-		$mysqli->close();
+		$mysqli->kill();
 		$mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $db);
 	}
 	
@@ -35,32 +35,32 @@
 		global $mysqli;
 		
 		if (($user1 == $user2) || ($level == 'everyone')) {
-			return True;
+			return TRUE;
 		}
 		if ($level == "FOFs") {
 			$query = sprintf("CALL isFOFsOf('%s', '%s');", $user1, $user2);
 			$result = $mysqli->query($query);
 			if ($result->num_rows > 0) {
-				return True;
+				return TRUE;
 			}
 		} elseif ($level == "friends") {
 			$query = sprintf("CALL isFriendsOf('%s', '%s')", $user1, $user2);
 			$result = $mysqli->query($query);
 			if ($result->num_rows > 0) {
-				return True;
+				return TRUE;
 			}
 		} elseif ($level == "nutritionists") {
 			$query = sprintf("select * from user where type = 'nutritionist' and username = '%s'", $user1);
 			$result = $mysqli->query($query);
 			if ($result->num_rows > 0) {
-				return True;
+				return TRUE;
 			}
 		} elseif ($level == "me") {
 			if ($user1 == $user2) {
-				return True;
+				return TRUE;
 			}
 		}
-		return False;
+		return FALSE;
 	}
 	
 	function newPostForm($returnFile) {
@@ -105,6 +105,9 @@
 	
 	function displayPostWithButtons($post, $returnFile) {
 		global $mysqli, $loggedInUser, $wallUsername;
+		
+		//not sure this is needed
+		restartMysqli();
 		
 		printf("<div class='post'>");
 		printf("<div class='postHeader'>%s %s says:<br></div>", $post["timestamp"], $post["postingUser"]);
@@ -188,6 +191,10 @@
 	
 	function displayCommentWithButtons($comment, $returnFile) {
 		global $mysqli, $loggedInUser, $wallUsername;
+		
+		//not sure this is needed
+		restartMysqli();
+		
 		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
 		printf("%s<br>", $comment["textContent"]);
 		//display embedded photo based on url
@@ -237,13 +244,14 @@
 		global $mysqli, $loggedInUser, $wallUsername;
 		
 		//show comments for this object (comment or post)
+		restartMysqli();
 		$query = sprintf("select * from comment where commentedThing = '%s'", $item["interactiveID"]);
 		$commentResults = $mysqli->query($query);
 		while ($comment = $commentResults->fetch_assoc()) {
 			$visibility = $comment["visibility"];
 			$postingUser = $comment["postingUser"];
 			$permission = hasPermission($loggedInUser, $postingUser, $visibility);
-			if ($permission == True) {
+			if ($permission == TRUE) {
 				//display the comment:
 				printf('<div class="comment">');
 				displayCommentWithButtons($comment, $returnFile);

@@ -19,7 +19,7 @@
 		$permission = hasPermission($loggedInUser, $profileUsername, $visibility);
 		$mysqli->kill();
 		$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
-		if ($permission != True) {
+		if ($permission != TRUE) {
 			printf("You do not have permission to view %s's profile", $profileUsername);
 		} else {
 			//get all the info for the profile

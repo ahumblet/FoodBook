@@ -11,9 +11,6 @@
 	function startMysqli() {
 		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
 		$mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $db);
-		/*if ($mysqli->connect_errno) {
-			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-		}*/
 	}
 	
 	function restartMysqli() {
@@ -76,10 +73,7 @@
 		printf('Title: <input type="text" name="title"><br>');
 
 		printf('Content: <input type="textarea" name="content"><br>');
-		
-		
-		//		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
-		printf('Photo: <input type="file" name="photo"> <br>');
+		printf('Embed Photo: <input type="text" name="photo"> <br>');
 		$query = sprintf("select * from location");
 		//drop down for locations
 		$locationResults = $mysqli->query($query);
@@ -116,6 +110,10 @@
 		printf("<div class='postHeader'>%s %s says:<br></div>", $post["timestamp"], $post["postingUser"]);
 		printf("%s<br>", $post["title"]);
 		printf("%s<br>", $post["textContent"]);
+		//display embedded photo based on url
+		if ($post["mediaContent"] != "") {
+			printf('<img src="%s" alt="alternative text" width="200" height="200"><br>', $post["mediaContent"]);
+		}
 		//lookup location name if there is one
 		if ($post["location"] != '') {
 			$query = sprintf("select * from location where interactiveID = '%s'", $post["location"]);
@@ -143,6 +141,10 @@
 		printf("<div class='postHeader'>%s %s says:<br></div>", $post["timestamp"], $post["postingUser"]);
 		printf("%s<br>", $post["title"]);
 		printf("%s<br>", $post["textContent"]);
+		//display embedded photo based on url
+		if ($post["mediaContent"] != "") {
+			printf('<img src="%s" alt="alternative text" width="200" height="200"><br>', $post["mediaContent"]);
+		}
 		//lookup location name if there is one
 		if ($post["location"] != '') {
 			$query = sprintf("select * from location where interactiveID = '%s'", $post["location"]);
@@ -188,6 +190,10 @@
 		global $mysqli, $loggedInUser, $wallUsername;
 		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
 		printf("%s<br>", $comment["textContent"]);
+		//display embedded photo based on url
+		if ($comment["mediaContent"] != "") {
+			printf('<img src="%s" alt="alternative text" width="200" height="200"><br>', $comment["mediaContent"]);
+		}
 		//print location if there is one, requires looking up the location name
 		if ($comment["location"] != '') {
 			$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);
@@ -213,6 +219,10 @@
 		printf('<div class="comment">');
 		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
 		printf("%s", $comment["textContent"]);
+		//display embedded photo based on url
+		if ($comment["mediaContent"] != "") {
+			printf('<img src="%s" alt="alternative text" width="200" height="200"><br>', $comment["mediaContent"]);
+		}
 		//print location if there is one, requires looking up the location name
 		if ($comment["location"] != '') {
 			$query = sprintf("select * from location where interactiveID = '%s'", $comment["location"]);

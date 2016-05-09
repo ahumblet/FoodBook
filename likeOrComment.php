@@ -59,6 +59,7 @@
 		$wallUser = $postee;
 		$interactiveId = $_POST["interactiveId"];
 		$textContent = $_POST["content"];
+		$mediaContent = $_POST["photo"];
 		$locationName = $_POST["location"];
 		//find associated location ID to use in new post query
 		$locationId = 'NULL';
@@ -70,9 +71,9 @@
 		}
 		//sloppy way of dealing with the fact that NULL can't have quotes around it
 		if ($locationId == 'NULL') {
-			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '',  'everyone', NULL, now())", $poster, $interactiveId, $textContent);
+			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '%s',  'everyone', NULL, now())", $poster, $interactiveId, $textContent, $mediaContent);
 		} else {
-			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '',  'everyone', '%s', now())", $poster, $interactiveId, $textContent, $locationId);
+			$query = sprintf("insert into comment (interactiveID, postingUser, commentedThing, textContent, mediaContent, visibility, location, timestamp) values ('', '%s', '%s', '%s', '%s',  'everyone', '%s', now())", $poster, $interactiveId, $textContent, $mediaContent, $locationId);
 		}
 		$mysqli->query($query);
 	} else {
@@ -91,7 +92,7 @@
 		//form to create a comment
 		printf('<form action="likeOrComment.php" method="post" id="like">');
 		printf('Content: <textarea name="content" style="width:250px;height:50px;"></textarea><br>');
-		printf('Photo: <input type="file" name="photo"> <br>');
+		printf('Embed Photo: <input type="text" name="photo"> <br>');
 		//location drop down
 		printf('Location: <select name="location">');
 		printf('<option value=""></option>');

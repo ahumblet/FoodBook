@@ -54,7 +54,7 @@
 		
 		
 		printf('<div class="post">');
-		if ($photo != 'NULL') {
+		if ($photo != '') {
 			printf('<div class="profilePhoto">');
 			//echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '"';
 						echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="270" width="270" align="right"/> <br>';

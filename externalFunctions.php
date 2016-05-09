@@ -15,7 +15,7 @@
 	
 	function restartMysqli() {
 		global $dbUser, $dbPassword, $db, $dbHost, $dbPort, $mysqli;
-		$mysqli->kill();
+		$mysqli->close();
 		$mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $db);
 	}
 	
@@ -218,7 +218,7 @@
 		global $mysqli, $loggedInUser, $wallUsername;
 		printf('<div class="comment">');
 		printf("<div class='postHeader'> %s %s:</div>",$comment["timestamp"], $comment["postingUser"]);
-		printf("%s", $comment["textContent"]);
+		printf("%s<br>", $comment["textContent"]);
 		//display embedded photo based on url
 		if ($comment["mediaContent"] != "") {
 			printf('<img src="%s" alt="alternative text" width="200" height="200"><br>', $comment["mediaContent"]);

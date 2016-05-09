@@ -34,6 +34,7 @@
 	{
 		global $mysqli;
 		
+		restartMysqli();
 		if (($user1 == $user2) || ($level == 'everyone')) {
 			return TRUE;
 		}
@@ -66,6 +67,8 @@
 	function newPostForm($returnFile) {
 		//form to create a new post
 		global $mysqli, $loggedInUser, $wallUsername;
+		
+		restartMysqli();
 		
 		printf("<div class='post'>");
 		printf("<div class='postHeader'>Write on %s's wall: </div>", $wallUsername);
@@ -245,6 +248,7 @@
 		
 		//show comments for this object (comment or post)
 		restartMysqli();
+		
 		$query = sprintf("select * from comment where commentedThing = '%s'", $item["interactiveID"]);
 		$commentResults = $mysqli->query($query);
 		while ($comment = $commentResults->fetch_assoc()) {
@@ -265,12 +269,6 @@
 	
 	function displayLimitedProfile($jointEntry) {
 		printf('<div class="post">');
-		/*if ($photo != 'NULL') {
-			printf('<div class="profilePhoto">');
-			//echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '"';
-			echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="400" width="400" align="right"/> <br>';
-			printf("</div>");
-		}*/
 		printf("<div class='subHeader'>%s's profile</div>", $jointEntry["username"]);
 		printf("First Name: %s <br>", $jointEntry["firstName"]);
 		printf("Last Name: %s <br>", $jointEntry["lastName"]);

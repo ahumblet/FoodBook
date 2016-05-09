@@ -1,10 +1,12 @@
 <?php
 	session_start();
 	include_once 'externalFunctions.php';
+	
+	$loggedInUser = $_SESSION["loggedInUser"];
+	
 	checkLoggedIn();
 	startMysqli();
 	
-	$loggedInUser = $_SESSION["loggedInUser"];
 	$wallUsername = $_GET["username"];
 	$searchTerm = $_POST["searchTerm"];
 

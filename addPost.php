@@ -32,9 +32,9 @@
 	
 	//this is a sloppy way of dealing with the fact that NULL locationID can't be in quotes
 	if ($locationId == 'NULL') {
-		$query = sprintf('insert into post (interactiveID, postingUser, receivingUser, title, textContent, mediaContent, visibility, location, timestamp) values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", NULL, now())', $interactiveId, $poster, $postee, $title, $content, $photo, $visibility);
+		$query = sprintf("insert into post (interactiveID, postingUser, receivingUser, title, textContent, mediaContent, visibility, location, timestamp) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', NULL, now())", $interactiveId, $poster, $postee, $title, $content, $photo, $visibility);
 	} else {
-		$query = sprintf('insert into post (interactiveID, postingUser, receivingUser, title, textContent, mediaContent, visibility, location, timestamp) values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", now())', $interactiveId, $poster, $postee, $title, $content, $photo, $visibility, $locationId);
+		$query = sprintf("insert into post (interactiveID, postingUser, receivingUser, title, textContent, mediaContent, visibility, location, timestamp) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', now())", $interactiveId, $poster, $postee, $title, $content, $photo, $visibility, $locationId);
 	}
 	$result = $mysqli->query($query);
 	

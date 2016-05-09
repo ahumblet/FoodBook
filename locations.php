@@ -40,7 +40,7 @@
 		printf('&nbsp;&nbsp;Latitude <input type="text" name="latitude" id="Latitude"><br>');
 		printf('&nbsp;&nbsp;<input type="submit" value="Add Location" name="addLocation"><br>');
 		printf('</form>');
-		printf('<br><br><br><br><br><br>');
+		printf('<br><br><br><br>');
 		printf('</div>');
 		
 		//show locations with like buttons

@@ -13,33 +13,17 @@
 	$result = $mysqli->query($query);
 	
 	if ($result->num_rows > 0) {
-		$row = $result->fetch_assoc();
-		//check visibility
-		$visibility = $row["visibility"];
-		$permission = hasPermission($loggedInUser, $profileUsername, $visibility);
-		$mysqli->kill();
-		$mysqli = new mysqli("$localhost", "$user", "$password", "$db");
-		if ($permission != TRUE) {
-			printf("You do not have permission to view %s's profile", $profileUsername);
-		} else {
-			//get all the info for the profile
-			$photo = $row["photo"];
-			$firstName = $row["firstName"];
-			$lastName = $row["lastName"];
-			$age = $row["age"];
-			$email = $row["email"];
-			$type = $row["type"];
-			//get liked locations
-			restartMysqli();	//this seems to be necessary!
-			$query = sprintf("select * from interactiveLike join location where interactiveLike.likedInteractiveID = location.interactiveID and likingUser = '%s'", $profileUsername);
-			$result = $mysqli->query($query);
-			$likedLocations = array();
-			if ($result->num_rows > 0) {
-				while ($row = $result->fetch_assoc()) {
-					$location = $row["locName"];
-					$interactiveID = $row["interactiveID"];
-					array_push($likedLocations, $location);
-				}
+		$profile = $result->fetch_assoc();
+		//get liked locations
+		restartMysqli();	//this seems to be necessary!
+		$query = sprintf("select * from interactiveLike join location where interactiveLike.likedInteractiveID = location.interactiveID and likingUser = '%s'", $profileUsername);
+		$result = $mysqli->query($query);
+		$likedLocations = array();
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$location = $row["locName"];
+				$interactiveID = $row["interactiveID"];
+				array_push($likedLocations, $location);
 			}
 		}
 	}
@@ -50,40 +34,47 @@
 //===============Function definitions==============//
 	
 	function generateProfileHTML() {
-		global $photo, $firstName, $lastName, $age, $email, $type, $loggedInUser, $profileUsername, $likedLocations;
-		
+		global $profile, $loggedInUser, $profileUsername, $likedLocations;
 		
 		printf('<div class="post">');
-		if ($photo != '') {
-			printf('<div class="profilePhoto">');
-			//echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '"';
-						echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="270" width="270" align="right"/> <br>';
-			printf("</div>");
-		}
+		
 		printf("<div class='pageHeader'>%s's profile</div>", $profileUsername);
-		printf("First Name: %s <br>", $firstName);
-		printf("Last Name: %s <br>", $lastName);
-		printf("Age: %s <br>", $age);
-		printf("Email: %s <br>", $email);
-		printf("Type: %s <br>", $type);
-		printf("Liked Locations: ");
-		foreach ($likedLocations as &$location) {
-			printf("%s, ", $location);
-		}
-		printf("<br><br>");
-		//edit profile button
-		if ($loggedInUser == $profileUsername) {
-			echo '<form action="editProfile.php">';
-			echo '<input type="submit" value="Edit Profile">';
-			echo '</form>';
-		}
 		
-		//link to wall
-	 printf("<br><br><a href='http://localhost:8888/finalProject/wall.php?username=%s'>View %s's wall</a>", $profileUsername, $profileUsername);
-
-		//link to wall
-	 printf("<br><br><a href='http://localhost:8888/finalProject/data.php?username=%s'>View %s's stats</a>", $profileUsername, $profileUsername);
-		
+		//check visibility
+		$visibility = $profile["visibility"];
+		$permission = hasPermission($loggedInUser, $profileUsername, $visibility);
+		if ($permission != TRUE) {
+			printf("You do not have permission to view %s's profile", $profileUsername);
+		} else {
+			if ($photo != '') {
+				printf('<div class="profilePhoto">');
+				//echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '"';
+							echo '<img src="data:image/jpeg;base64, ' . base64_encode($photo) . '" height="270" width="270" align="right"/> <br>';
+				printf("</div>");
+			}
+			printf("First Name: %s <br>", $profile["firstName"]);
+			printf("Last Name: %s <br>", $profile["lastName"]);
+			printf("Age: %s <br>", $profile["age"]);
+			printf("Email: %s <br>", $profile["email"]);
+			printf("Type: %s <br>", $profile["type"]);
+			printf("Liked Locations: ");
+			foreach ($likedLocations as &$location) {
+				printf("%s, ", $location);
+			}
+			printf("<br><br>");
+			//edit profile button
+			if ($loggedInUser == $profileUsername) {
+				echo '<form action="editProfile.php">';
+				echo '<input type="submit" value="Edit Profile">';
+				echo '</form>';
+			}
+			
+			//link to wall
+		 printf("<br><a href='http://localhost:8888/finalProject/wall.php?username=%s'>View %s's wall</a>", $profileUsername, $profileUsername);
+			
+			//link to wall
+		 printf("<br><br><a href='http://localhost:8888/finalProject/data.php?username=%s'>View %s's stats</a>", $profileUsername, $profileUsername);
+		}
 		printf('</div>');
 	}
 ?>

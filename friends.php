@@ -57,7 +57,7 @@
 	//================ Function Definitions ===========//
 	
 	function generateFriendsPage() {
-		global $loggedInUser, $friends, $invites, $pendingFriends, $nonFriends;
+		global $loggedInUser, $friends, $invites, $pendingFriends, $nonFriends, $urlRoot;
 		
 		//title
 		printf("<div class='pageHeader'>%s's friends</div>", $loggedInUser);
@@ -66,7 +66,7 @@
 		printf('<div class="post">');
 		printf("<div class='postHeader'> You are friends with:</div> ");
 		foreach ($friends as &$friend) {
-			printf('<a href="%s/finalProject/profile.php?username=%s">%s</a><br>', $urlRoot, $friend, $friend);
+			printf('<a href="%s/profile.php?username=%s">%s</a><br>', $urlRoot, $friend, $friend);
 		}
 		printf("</div>");
 		
@@ -86,7 +86,7 @@
 		printf('<div class="post">');
 		printf("<div class='postHeader'> Waiting for responses from:</div>");
 		foreach ($pendingFriends as $pendingFriend) {
-			printf('<a href="%s/profile.php?username=%s">%s</a><br>', $urlRoot, $pendingFriend, $pendingFriend);
+			printf('<a href="%s/profile.php?username=%s">%s</a>&nbsp', $urlRoot, $pendingFriend, $pendingFriend);
 		}
 		printf("</div>");
 		
@@ -95,7 +95,7 @@
 		printf("<div class='postHeader'> Non-Friends of %s:</div>", $loggedInUser);
 		printf('<form class="login-form" action="requestFriend.php" method="post">');
 		foreach ($nonFriends as &$nonFriend) {
-			printf('<a href="http://localhost:8888/finalProject/profile.php?username=%s">%s</a>&nbsp', $nonFriend, $nonFriend);
+			printf('<a href="%s/profile.php?username=%s">%s</a>&nbsp', $urlRoot, $nonFriend, $nonFriend);
 			printf('<button name="requestedFriend" value="%s" type="submit">add friend</button><br>', $nonFriend);
 		}
 		printf('</form>');
